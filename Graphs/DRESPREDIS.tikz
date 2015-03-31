@@ -1,0 +1,56 @@
+% This file was created by matlab2tikz v0.4.6 running on MATLAB 8.2.
+% Copyright (c) 2008--2014, Nico Schlömer <nico.schloemer@gmail.com>
+% All rights reserved.
+% Minimal pgfplots version: 1.3
+% 
+% The latest updates can be retrieved from
+%   http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz
+% where you can also make suggestions and rate matlab2tikz.
+% 
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=\figurewidth,
+height=\figureheight,
+scale only axis,
+xmin=1,
+xmax=24,
+xlabel={Time (hour)},
+ymin=0,
+ymax=16,
+ylabel={Production (MW)},
+axis x line*=bottom,
+axis y line*=left,
+legend style={draw=black,fill=white,legend cell align=left, at={(0.5,-0.25)},anchor=north, legend columns=1}
+]
+\addplot [color=blue,solid]
+  table[row sep=crcr]{
+0	3.852	\\
+1	5.728	\\
+2	5.338	\\
+3	4.864	\\
+4	1.707	\\
+5	2.045	\\
+6	1.749	\\
+7	0.532	\\
+8	1.006	\\
+9	8.0293793	\\
+10	7.3152759	\\
+11	11.8102414	\\
+12	15.528	\\
+13	9.4014483	\\
+14	13.7370345	\\
+15	10.3953103	\\
+16	5.206	\\
+17	1.792	\\
+18	7.956	\\
+19	3.652	\\
+20	3.417	\\
+21	6.016	\\
+22	0.514	\\
+23	8.088	\\
+};
+\addlegendentry{PREDIS Network};
+
+\end{axis}
+\end{tikzpicture}%

@@ -1,0 +1,46 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
+\select@language {english}
+\contentsline {chapter}{Acknowledgements}{vii}{chapter*.1}
+\contentsline {chapter}{Abstract}{ix}{chapter*.2}
+\contentsline {chapter}{The \textup {evolvDSO} Project}{xi}{chapter*.3}
+\contentsline {chapter}{G2E Lab}{xiii}{chapter*.5}
+\contentsline {chapter}{Table of Contents}{xv}{section*.7}
+\contentsline {chapter}{List of Figures}{xvii}{section*.8}
+\contentsline {chapter}{List of Tables}{xix}{section*.9}
+\contentsline {chapter}{\chapternumberline {1}Introduction}{1}{chapter.1}
+\contentsline {chapter}{\chapternumberline {2}State of the Art}{3}{chapter.2}
+\contentsline {section}{\numberline {2.1}Load Forecasting}{3}{section.2.1}
+\contentsline {section}{\numberline {2.2}Distributed Generation Forecasting}{4}{section.2.2}
+\contentsline {section}{\numberline {2.3}Distribution Network Optimization}{5}{section.2.3}
+\contentsline {chapter}{\chapternumberline {3}Load and DRES Modeling}{7}{chapter.3}
+\contentsline {section}{\numberline {3.1}Test Networks}{7}{section.3.1}
+\contentsline {section}{\numberline {3.2}Models Applied to Test Networks}{8}{section.3.2}
+\contentsline {chapter}{\chapternumberline {4}The Algorithm}{11}{chapter.4}
+\contentsline {section}{\numberline {4.1}Definition of Requirements}{11}{section.4.1}
+\contentsline {section}{\numberline {4.2}Initial Development Ideas}{11}{section.4.2}
+\contentsline {section}{\numberline {4.3}Components and Functions of the Final Algorithm}{13}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Reconfiguration Component}{13}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Local Management Component}{14}{subsection.4.3.2}
+\contentsline {subsection}{\numberline {4.3.3}Global Management Component}{15}{subsection.4.3.3}
+\contentsline {subsection}{\numberline {4.3.4}Other Components and Functions}{15}{subsection.4.3.4}
+\contentsline {section}{\numberline {4.4}Association of Costs}{16}{section.4.4}
+\contentsline {subsection}{\numberline {4.4.1}Economic Model for Switching}{16}{subsection.4.4.1}
+\contentsline {subsection}{\numberline {4.4.2}Economic Model for Load Reduction/Shedding}{17}{subsection.4.4.2}
+\contentsline {subsection}{\numberline {4.4.3}Economic Model for OLTC}{17}{subsection.4.4.3}
+\contentsline {subsection}{\numberline {4.4.4}Economic Model for Voltage VAr Control}{17}{subsection.4.4.4}
+\contentsline {subsection}{\numberline {4.4.5}Economic Model for Violations}{17}{subsection.4.4.5}
+\contentsline {section}{\numberline {4.5}Working of the Algorithm}{18}{section.4.5}
+\contentsline {chapter}{\chapternumberline {5}Results}{19}{chapter.5}
+\contentsline {section}{\numberline {5.1}Initial Results - Development}{19}{section.5.1}
+\contentsline {section}{\numberline {5.2}Results from the Algorithm}{21}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}PREDIS Network}{21}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {5.2.2}Rural Network}{25}{subsection.5.2.2}
+\contentsline {section}{\numberline {5.3}Analysis of the Results}{28}{section.5.3}
+\contentsline {chapter}{\chapternumberline {6}Conclusions and Perspectives}{29}{chapter.6}
+\contentsline {chapter}{\chapternumberline {7}Valorization of Work}{31}{chapter.7}
+\contentsline {appendix}{\chapternumberline {A}Load and DRES Models}{A}{appendix.A}
+\contentsline {section}{\numberline {A.1}Load Modeling}{A}{section.A.1}
+\contentsline {section}{\numberline {A.2}DRES Modeling}{C}{section.A.2}
+\contentsline {appendix}{\chapternumberline {B}Appendix to the Algorithm}{E}{appendix.B}
+\contentsline {chapter}{References}{K}{section*.56}

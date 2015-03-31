@@ -1,0 +1,86 @@
+% This file was created by matlab2tikz v0.4.6 running on MATLAB 8.2.
+% Copyright (c) 2008--2014, Nico Schlömer <nico.schloemer@gmail.com>
+% All rights reserved.
+% Minimal pgfplots version: 1.3
+% 
+% The latest updates can be retrieved from
+%   http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz
+% where you can also make suggestions and rate matlab2tikz.
+% 
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=\figurewidth,
+height=\figureheight,
+scale only axis,
+xmin=1,
+xmax=24,
+xlabel={Time (hour)},
+ymin=0,
+ymax=1200,
+ylabel={Losses (kW)},
+axis x line*=bottom,
+axis y line*=left,
+legend style={draw=black,fill=white,legend cell align=left, at={(0.5,-0.25)},anchor=north, legend columns=1}
+]
+\addplot [color=red,solid,line width=1.0pt,mark=asterisk,mark options={solid}]
+  table[row sep=crcr]{
+0   273.291098533993    \\
+1   282.883988799185    \\
+2   484.457090834875    \\
+3   280.795992600733    \\
+4   202.2770567744  \\
+5   185.434351023359    \\
+6   231.830509016609    \\
+7   222.3258291977  \\
+8   387.721498842253    \\
+9   701.434470847533    \\
+10  470.267423390158    \\
+11  325.165024492763    \\
+12  363.191877673265    \\
+13  641.489871778722    \\
+14  888.203974469809    \\
+15  633.128372293215    \\
+16  340.033853735636    \\
+17  510.1638446975  \\
+18  142.05734485522 \\
+19  359.040838567293    \\
+20  526.98651847653 \\
+21  186.150392103251    \\
+22  601.438001672017    \\
+23  593.787493021791    \\
+};
+\addlegendentry{Unoptimized Network};
+
+\addplot [color=blue,solid,line width=1.0pt,mark=square,mark options={solid}]
+  table[row sep=crcr]{
+0   273.291098533998    \\
+1   282.883988799187    \\
+2   121.660248981492    \\
+3   60.2455848765004    \\
+4   41.7021073032459    \\
+5   33.6334325365006    \\
+6   34.6982298451592    \\
+7   34.0823667428797    \\
+8   45.3322515257204    \\
+9   62.591412973606 \\
+10  116.66865036906 \\
+11  172.503635456776    \\
+12  254.273529194148    \\
+13  144.499489562683    \\
+14  461.103483208029    \\
+15  282.8054247793  \\
+16  78.7555159221326    \\
+17  69.0014456573268    \\
+18  100.239925076984    \\
+19  116.408640259746    \\
+20  104.851189839822    \\
+21  105.735991912262    \\
+22  144.591433824576    \\
+23  105.81457186743 \\
+};
+\addlegendentry{Begin with Original Configuration};
+
+
+\end{axis}
+\end{tikzpicture}%

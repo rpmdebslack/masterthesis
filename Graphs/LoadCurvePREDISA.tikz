@@ -1,0 +1,58 @@
+% This file was created by matlab2tikz v0.4.6 running on MATLAB 8.2.
+% Copyright (c) 2008--2014, Nico Schlömer <nico.schloemer@gmail.com>
+% All rights reserved.
+% Minimal pgfplots version: 1.3
+% 
+% The latest updates can be retrieved from
+%   http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz
+% where you can also make suggestions and rate matlab2tikz.
+% 
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=\figurewidth,
+height=\figureheight,
+scale only axis,
+xmin=1,
+xmax=24,
+xtick={ 0,  4,  8, 12, 16, 20, 24},
+xlabel={Time (hour)},
+ymin=8,
+ymax=28,
+ytick={8, 12, 16, 20, 24, 28},
+ylabel={Demand (MW)},
+axis x line*=bottom,
+axis y line*=left,
+legend style={draw=black,fill=white,legend cell align=left, at={(0.5,-0.25)},anchor=north, legend columns=1}
+]
+\addplot [color=blue,solid]
+  table[row sep=crcr]{
+0	13.075	\\
+1	12.425	\\
+2	11.2375	\\
+3	11.5375	\\
+4	10.6	\\
+5	10.3	\\
+6	11.475	\\
+7	11.4625	\\
+8	19.0625	\\
+9	23.875	\\
+10	24.6125	\\
+11	24.9625	\\
+12	25.5	\\
+13	23.2875	\\
+14	24.675	\\
+15	24.475	\\
+16	24.425	\\
+17	23.7875	\\
+18	23.325	\\
+19	22.3125	\\
+20	19.1375	\\
+21	17.9625	\\
+22	16.15	\\
+23	15.5	\\
+};
+\addlegendentry{PREDIS Network};
+
+\end{axis}
+\end{tikzpicture}%

@@ -1,0 +1,220 @@
+% SVN info for this file
+%!TEX root = report.tex
+\svnidlong
+{$HeadURL$}
+{$LastChangedDate$}
+{$LastChangedRevision$}
+{$LastChangedBy$}
+
+\chapter{Load and DRES Modeling}
+\labelChapter{model}
+
+\begin{introduction}
+  In this chapter, day-ahead modeling of loads and DRES production is explained. While the modeling done here is for the purpose of this Master's thesis alone, models based on the state of the art in prediction (\refChapterOnly{stateofart}) are envisaged to be developed in future.
+\end{introduction}
+
+\lettrine[nindent=0pt]{I}{n} order to construct load models for one full day, with a temporal resolution of one hour, two different initial models were chosen. They are based on the models found in \cite{Lopez2004} and \cite{Yin2009}. They describe typical load curves for one day, and based on them, two load curves (Model 1 and Model 2) are constructed.\refAppendixOnly{loaddresmodels} elaborates on the load and DRES models, with explanations regarding their formulation.
+
+\section{Test Networks}
+
+\lettrine[nindent=0pt]{T}{wo} different distribution networks, one urban, and one rural were tested using the developed algorithm. One is an urban network and the other is a rural network. The urban network, called the PREDIS network, is a test network present at G2E Lab/Grenoble INP, and its details are shown in \refFigureOnly{fig:predisnw}, refTableOnly{predisbase}, and \refTableOnly{predisImax}. The other network is shown in \refFigureOnly{fig:dasnw}, and its other details are shown in \refTableOnly{dasbase} and \refTableOnly{dasImax}.\\
+
+\begin{table}[!h]
+    \begin{minipage}[!h]{.65\textwidth}
+	\centering
+	\includegraphics[width=1\textwidth]{NwImages/PREDIS}
+	\captionof{figure}{The PREDIS/Urban Distribution Network}
+	\labelFigure{fig:predisnw}
+    \end{minipage}
+    \begin{minipage}[h]{.35\textwidth }
+    \centering
+	\begin{tabular}{cc}
+	\hline
+	Voltage & $11$ kV\\
+	% \hline
+	\rowcolor{gray!15}
+	Power & $100$ MVA\\
+	% \hline
+	Current &  $5248.6$ A\\
+	% \hline
+	\rowcolor{gray!15}
+	Impedance & $1.21$ $\Omega$\\
+	\hline
+	\end{tabular}
+	\caption{PREDIS - Base Values}
+	\labelTable{predisbase}
+
+	\vspace*{1 cm}
+
+	\begin{tabular}{cc}
+	% \hline
+	\rowcolor{gray!25}
+	\textbf{Lines} & \textbf{I max}\\
+	\hline
+	$7$, $8$, $10$ \& $11$ & $195$ A\\
+	% \hline
+	\rowcolor{gray!15}
+	$14$ & $302$ A\\
+	% \hline
+	$4$, $9$ \& $15-17$ & $363$ A\\
+	% \hline
+	\rowcolor{gray!15}
+	$6$ & $402$ A\\
+	% \hline
+	$5$ & $538$ A\\
+	% \hline
+	\rowcolor{gray!15}
+	$1-3$, $12$ \& $13$ & $1$ pu\\
+	\hline
+	\end{tabular}
+	\caption{PREDIS - $I_{max}$}
+	\labelTable{predisImax}
+    \end{minipage}%
+\end{table}
+
+
+\begin{table}[!h]
+    \begin{minipage}[!h]{.5\textwidth}
+	\centering
+	\includegraphics[width=0.8\textwidth]{NwImages/Rural_Network}
+	\captionof{figure}{The Rural Distribution Network}
+	\labelFigure{fig:dasnw}
+    \end{minipage}
+    \begin{minipage}[h]{.5\textwidth }
+    \centering
+	\begin{tabular}{cc}
+	\hline
+	Voltage & $11$ kV\\
+	% \hline
+	\rowcolor{gray!15}
+	Power & $10$ MVA\\
+	% \hline
+	Current &  $524.86$ A\\
+	% \hline
+	\rowcolor{gray!15}
+	Impedance & $12.1$ $\Omega$\\
+	\hline
+	\end{tabular}
+	\caption{Rural Network - Base Values}
+	\labelTable{dasbase}
+
+	\vspace*{1 cm}
+
+	\begin{tabular}{cc}
+	% \hline
+	\rowcolor{gray!25}
+	\textbf{Lines} & \textbf{I max}\\
+	\hline
+	Tie Lines & $234$ A\\
+	% \hline
+	\rowcolor{gray!15}
+	$1-18$, $17-23$ & $270$ A\\
+	$31-39$, $52-57$ & $270$ A \\
+	% \hline
+	\rowcolor{gray!15}
+	$9-16$, $24-30$ & $208$ A\\
+	$40-51$, $58-68$ & $208$ A\\
+	\hline
+	\end{tabular}
+	\caption{Rural Network - $I_{max}$}
+	\labelTable{dasImax}
+    \end{minipage}%
+\end{table}
+
+The two networks are varied in nature, and they were chosen with this very thought in mind. The urban network is smaller in size, with $14$ buses and $17$ lines. The rural network has $69$ buses and $79$ lines. The application of the developed algorithm to two different networks should ideally yield different results, and it would be interesting to compare and contrast them with one another.\\
+
+The PREDIS network already has DRES connected. However, the rural network has no DRES data. Therefore, using a program developed by Marie-C\'{e}cile Alvarez-Herault\footnote{Marie-C\'{e}cile Alvarez-Herault is an associate professor at Grenoble INP, and a researcher at G2E Lab, where she works in the SYREL Team.}, DRES were randomly connected to the network for a $30\%$ insertion rate.\\
+
+A load flow on the networks (using the applied models developed in \refSectionOnly{sec:appliedmodels}) showed that the problems associated with the two networks were indeed as thought. The urban network had many violations of current and voltage limits, while the rural network had fewer of the same.
+
+\section {Models Applied to Test Networks}
+\labelSection{sec:appliedmodels}
+
+\lettrine[nindent=0pt]{T}{wo} load curves were created for each of the networks, based on the models explained earlier. The first one (model A) involved a simple association of one load type to each node in the networks.\\
+
+In the second model (model B), for each node in both the test networks, a pseudo-random percentage of each of the load types was assigned. The assignment was pseudo-random in the sense that care was taken to see that the percentage of certain load types (for e.g.\ lighting) did not become unnaturally high. Typically, the load types were randomly assigned a percentage in the ranges shown in \refTableOnly{RICLperc}.\\
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ccc}
+% \hline
+\rowcolor{gray!25}
+\textbf{Load Type} & \textbf{PREDIS Network} & \textbf{Rural Network}\\
+\hline
+Residential & $5-80$\% & $8-50$\% \\
+% \hline
+\rowcolor{gray!15}
+Industrial & $5-50$\% & $20-75$\% \\
+% \hline
+Commercial & $0-50$\% & $5-70$\% \\
+% \hline
+\rowcolor{gray!15}
+Lighting & $5-15$\% & $5-15$\% \\
+\hline
+\end{tabular}
+\caption{Load Percentages}
+\labelTable{RICLperc}
+\end{table}
+
+Based on these percentages, the two models were adapted to the two networks, and the day-ahead load curves were derived. The curves for both models are shown in \refFigureOnly{fig:dayaheadloadcurves}.\\
+
+\begin{figure}[!h]
+\begin{minipage}[!h]{.5\textwidth}
+	\centering
+    \setlength\figureheight{5cm}
+    \setlength\figurewidth{6cm}
+	\input{Graphs/LoadCurvePREDIS.tikz}
+\end{minipage}
+\begin{minipage}[!h]{.5\textwidth}
+	\centering
+	\setlength\figureheight{5cm}
+    \setlength\figurewidth{6cm}
+	\input{Graphs/LoadCurveDas.tikz}
+\end{minipage}
+\caption{Day-ahead Load Curves (Models A \& B) for the Test Networks}
+\labelFigure{fig:dayaheadloadcurves}
+\end{figure}
+
+As for the DRES production, the cumulative values are shown in \refFigureOnly{fig:dayaheadDREScurves}.\\
+
+\begin{figure}[!h]
+\begin{minipage}[!h]{.5\textwidth}
+	\centering
+    \setlength\figureheight{5cm}
+    \setlength\figurewidth{6cm}
+	\input{Graphs/DRESPREDIS.tikz}
+\end{minipage}
+\begin{minipage}[!h]{.5\textwidth}
+	\centering
+	\setlength\figureheight{5cm}
+    \setlength\figurewidth{6cm}
+	\input{Graphs/DRESDas.tikz}
+\end{minipage}
+\caption{Cumulative Day-ahead DRES Production Curves for the Test Networks}
+\labelFigure{fig:dayaheadDREScurves}
+\end{figure}
+
+The curves show a major share of power coming from solar energy in the PREDIS network (understandably, given that it is an urban network) and a major share for wind power in the rural network (evident with a dip during midday, something that would have normally not happened with solar power). These are the models that have been utilized for the algorithm.\\
+
+For the two networks, the maximum insertion rate of DRES is shown below. The values change every hour for both the networks.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ccc}
+% \hline
+\rowcolor{gray!25}
+& \textbf{Load Model A} & \textbf{Load Model B}\\
+\hline
+PREDIS Network & $60.89$\% (Hour $12$) & $81.75$\% (Hour $12$) \\
+% \hline
+\rowcolor{gray!15}
+Rural Network & $99.69$\% (Hour $3$) & $131.86$\% (Hour $3$) \\
+\hline
+\end{tabular}
+\caption{DRES Insertion Rates}
+\labelTable{dresins}
+\end{table}
+
+In the case where the insertion rate is higher than $100$\%, there is a possibility for injection of power from the distribution network to the transmission network. This is unadvisable and causes other constraints, which will be treated in due course of development.
+
+

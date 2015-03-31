@@ -1,0 +1,32 @@
+\documentclass{article}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{graphicx}
+
+\begin{document}
+
+\begin{figure}[!h]
+	\centering
+	\newlength\figureheight
+	\newlength\figurewidth
+    \setlength\figureheight{10cm}
+    \setlength\figurewidth{14cm}
+	\input{Graphs/Results/PREDIS/OldLoad/LossesOrg1.tikz}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+    \setlength\figureheight{10cm}
+    \setlength\figurewidth{14cm}
+	\input{Graphs/Results/PREDIS/OldLoad/VtgOrg1.tikz}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+    \setlength\figureheight{6cm}
+    \setlength\figurewidth{14cm}
+	\input{Graphs/Results/PREDIS/OldLoad/VioOrg.tikz}
+\end{figure}
+
+\end{document}

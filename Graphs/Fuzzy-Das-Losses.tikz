@@ -1,0 +1,86 @@
+% This file was created by matlab2tikz v0.4.6 running on MATLAB 8.2.
+% Copyright (c) 2008--2014, Nico Schlömer <nico.schloemer@gmail.com>
+% All rights reserved.
+% Minimal pgfplots version: 1.3
+% 
+% The latest updates can be retrieved from
+%   http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz
+% where you can also make suggestions and rate matlab2tikz.
+% 
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=\figurewidth,
+height=\figureheight,
+scale only axis,
+xmin=1,
+xmax=24,
+xtick={ 0,  4,  8, 12, 16, 20, 24},
+xlabel={Time (hour)},
+ymin=0,
+ymax=120,
+ylabel={Losses (kW)},
+axis x line*=bottom,
+axis y line*=left,
+legend style={draw=black,fill=white,legend cell align=left, at={(0.5,-0.25)},anchor=north, legend columns=1}
+]
+\addplot [color=red,solid,line width=1.0pt]
+  table[row sep=crcr]{
+0	25.0124722690181	\\
+1	17.8074998609437	\\
+2	15.7082616401144	\\
+3	13.7539330548689	\\
+4	12.6175428922412	\\
+5	12.0746970173773	\\
+6	10.3105261991442	\\
+7	25.6585985248919	\\
+8	17.9942948857911	\\
+9	25.5481918143946	\\
+10	50.8161601025259	\\
+11	66.1348401633588	\\
+12	40.8105587793861	\\
+13	47.3308088271163	\\
+14	43.1083988848968	\\
+15	26.033342703346	\\
+16	40.9950696369976	\\
+17	39.0022941370682	\\
+18	85.9542054269014	\\
+19	94.2522961497216	\\
+20	100.187366823425	\\
+21	99.1901743733381	\\
+22	64.2883590651411	\\
+23	47.5876520680774	\\
+};
+\addlegendentry{Original Network};
+
+\addplot [color=green,solid,line width=1.0pt]
+  table[row sep=crcr]{
+0	20.579924512556	\\
+1	15.1962920000714	\\
+2	13.1921900818442	\\
+3	12.0896771555037	\\
+4	10.3211833311107	\\
+5	9.88377736322914	\\
+6	8.54212915306796	\\
+7	21.068653593414	\\
+8	15.1801387273015	\\
+9	22.3416613994082	\\
+10	43.8303843921406	\\
+11	55.6487992088406	\\
+12	35.9583884459491	\\
+13	36.302322712839	\\
+14	39.0884495578525	\\
+15	23.523593196163	\\
+16	34.5180822296876	\\
+17	31.3751431446874	\\
+18	66.0031031268615	\\
+19	74.859700265193	\\
+20	87.184777993865	\\
+21	84.1506048105045	\\
+22	55.3157909798607	\\
+23	36.9990021690358	\\
+};
+\addlegendentry{Optimized Network};
+
+\end{axis}
+\end{tikzpicture}%

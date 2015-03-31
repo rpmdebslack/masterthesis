@@ -1,0 +1,20 @@
+% SVN info for this file
+%!TEX root = report.tex
+\svnidlong
+{$HeadURL$}
+{$LastChangedDate$}
+{$LastChangedRevision$}
+{$LastChangedBy$}
+
+\chapter{Introduction}
+\labelChapter{introduction}
+
+\lettrine[findent=0pt, nindent=0pt]{T}{here} will come a time in the near future, when the age-old concept of power delivery from large generation sites to far-away consumer centres ceases to be true. The concept, which is as old as the electric power system itself, is being challenged by a large-scale adoption of Distributed Renewable Energy Sources (DRES) across the planet. This adoption sets severe constraints on power systems, specifically distribution networks, many of which are either too old, or were designed in a manner that could not have sustained intermittent power injection from DRES in load centres. In many countries and states, legislature supports this adoption or even partially funds it through subsidies, but often fails to understand entirely the effects it can have, and therefore leaves it to research to find solutions to tackle this problem.\\
+
+The traditional problems distribution networks had with respect to their observability were earlier solved or managed by operating distribution networks with a reactive approach, responding to issues as they arose during real-time operation, although a lot of planning also went into it. This was sufficient as power flow was unidirectional (i.e. from the sub-station to loads) and it allowed distribution networks to be operated in radial configurations without much care for optimization. Transmission networks on the other hand, were built to be inherently intelligent, observable and controllable, and were operated in meshed configurations.\\
+
+With high DRES penetration, transmission networks can continue to be operated in the same manner, but the approach used for distribution networks will no longer suffice when the unidirectional property of power flow is endangered. The operation of these networks will then require some intelligence, real-time and advance decision-making, and to a great extent, optimization. Smart Grids has been the keyword researchers have been using to identify solutions to this problem, among several others.\\
+
+As already explained, the evolvDSO project aims to target a specific area of research that will help Distribution System Operators (DSOs) fulfil new responsibilities in the efficient operation of distribution networks. The work leading to this thesis has been concentrated on finding a generic algorithm that provides an optimal configuration for distribution networks while taking into account the intermittence and the unpredictable nature of DRES. The envisaged algorithm will aim to take many factors and constraints into account, and initially develop a simplified solution, with further possibility of research and development. These factors include controllable loads, control of reactive power injected by DRES, On-load Tap Changing (OTLC), and network reconfiguration. This algorithm will propose a set of configurations for a given distribution network for a specified time horizon, usually a day.\\
+
+\refChapterOnly{stateofart} of this thesis deals with the state-of-the-art as far as operation of distribution networks under power injection from DRES is concerned. It will also outline the gaps identified in the state-of-the-art and explain how the algorithm proposed in this thesis can fill these gaps. \refChapterOnly{model} discusses the predictive and forecasting methods that can be used in order to have DRES production and load consumption values in advance for distribution networks. \refChapterOnly{algo} elaborates on the development of the multi-temporal algorithm for optimization of distribution networks which can, for any given distribution network, make use of the the factors mentioned previously and also the results from \refChapterOnly{model}. \refChapterOnly{results} shows the results obtained on two different distribution networks using the developed algorithm, followed by a conclusion, appendices, and references.

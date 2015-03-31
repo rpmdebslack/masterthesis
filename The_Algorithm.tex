@@ -1,0 +1,261 @@
+% SVN info for this file
+%!TEX root = report.tex
+
+\svnidlong
+{$HeadURL$}
+{$LastChangedDate$}
+{$LastChangedRevision$}
+{$LastChangedBy$}
+
+\chapter{The Algorithm}
+\labelChapter{algo}
+
+\begin{introduction}
+This chapter describes the multi-temporal day-ahead optimization algorithm for distribution networks, its various components, and also provides some insights into various development examples.
+\end{introduction}
+
+
+\section{Definition of Requirements}
+
+\lettrine[nindent=-0pt]{T}{he} algorithm developed makes use of the results of forecasting of DRES and loads in a particular distribution network to provide a day-ahead schedule for that distribution network. Two main requirements were laid down in the beginning:\\
+
+\begin{itemize}
+\item The algorithm has to be multi-objective, making use of a combination several methods to achieve optimization.\\
+\item The algorithm has to be modular in nature, so that other methods of optimization can be added, or the current methods modified, in future. This will also permit the addition of results from state estimation in unobservable or partially observable distribution networks.\\
+\item The algorithm has to be user-friendly, providing outputs that an end-user can understand.
+\end{itemize}
+
+\section{Initial Development Ideas}
+\lettrine[nindent=0pt]{B}{efore} developing the actual algorithm, a lot of initial ideas were developed and tested with respect to individual components in the algorithm. Some of the components, the successful development of which later led to the development of the  algorithm are elucidated below.\\
+
+Right from the beginning, reconfiguration was envisaged to be one of the major components. As explained in \refChapterOnly{stateofart}, most of the current literature considers only a snapshot of the network conditions for reconfiguration. However, in real networks, conditions often change. This means that the reconfiguration performed once should continue to be the optimal for every condition that succeeds the condition for which it was performed. One solution for this problem could be to reconfigure every time the conditions in the network change. But since reconfiguration in distribution networks is a cumbersome, often expensive task, it is good that it is not done in that manner. Therefore, another solution which can maintain optimality without requiring frequent reconfigurations has to be chosen.\\
+
+In order to find such a solution, means to decrease the number of reconfigurations were investigated. A simple reconfiguration function based on the well known Merlin and Back method was tested on two different networks with various inputs. As will be seen in \refChapterOnly{results}, one of the methods that made use of the maximum values of loads and DRES production for the entire time horizon under consideration performed consistently well, with results very close to that of hourly reconfiguration. This was also tested with the final reconfiguration algorithm, and with this working well, was implemented in the final solution. Once it was proven that the number of reconfigurations could potentially be reduced by using maximum values of load and DRES parameters, development of other optimization methods was undertaken.\\
+
+The development of these methods was fairly simple too. Initially, only voltage violations were taken into account, with current violations being added later. For reactive power setting (VVC) of generators, a \textsc{matlab} function - \emph{fmincon} with objectives to eliminate the voltage violations was used. Each DRES has reactive power limits, which is a function of the active power it produces. These limits formed the upper and lower bounds for the optimization, while the objective function was the cumulative difference between the voltages of the affected nodes and an arbitrarily chosen constant which was within the acceptable voltage limits ($0.95\ \mathrm{pu} < V < 1.05\ \mathrm{pu}$). The input to the function `$x0$' started at a value of zero, which implied that the generators were generating only active power. \emph{fmincon} sets the reactive powers of these generators. Initially, irrespective of the location of the violations, all the generators were involved in this process. This was changed later with a selection routine, based on the type and location of the violation.\\
+
+Load Reduction was developed using \emph{fmincon} as well. For simplicity, it was assumed that an arbitrary percentage of load could be reduced at arbitrarily chosen nodes in a given distribution network, if the need arose. The upper and lower bounds were the actual load on the node, and the reduced load (based on the arbitrarily chosen percentage) respectively. The objective function for load reduction is the same as the one used in VVC.\\
+
+OLTC control was among the easiest to implement. The OLTCs to be operated were decided based on the localisation of violations to their respective feeders, each of which might or might not be serviced by OLTCs. In the \emph{fmincon} optimization for the OLTC setting, the input `$x0$' had to be modified during every iteration to the nearest OLTC setting available. The upper and lower bounds were the two extreme settings of the respective OTLCs. The only difference with using the OLTCs was that once any tap change was made, it would not automatically change the next hour (unlike DRES active power, or loads). Therefore, the input to the optimisation done next hour had to take into account the old positions of the tap.\\
+
+With the merging of the three different methods into one optimisation, taking into account the respective constraints for each of the variables, a modular function was made and tested. All the three methods have costs associated to them. However, since their sole purpose is to get rid of violations, it was initially decided to not favour one method over another. This means that the objective of the \emph{fmincon} will be to solely use any method, or a combination of these methods, to rid the network of violations.\\
+
+In future, the \emph{fmincon} function can be replaced with a multi-objective function that minimizes the cost while getting rid of violations. This will make the cost of each of the method very important as it can have a major effect on which methods are chosen.\\
+
+The addition of current violations required a few changes to be made in the functions. Management of voltage violations was still implemented with nearby nodes only. But load reduction and VVC had to be activated for all the nodes downstream of the line with overcurrent. Also, since \emph{fmincon} cannot perform multi-objective optimization, three separate optimization routines had to be created, two for current and voltage violations each, and one for both violations (when they occur together). With all the individual components working, further development could be made.
+
+\section{Components and Functions of the Final Algorithm}
+\labelSection{algo:components}
+
+\lettrine[nindent=-0pt]{T}{he} various components of the final algorithm, which make use of the functions developed initially are listed below, with a brief description about each of the components following it. The next section will elaborate on the use of these components, and thus complete the idea.
+
+\begin{figure}[!h]
+% A component diagram will have to be included here.
+\pgfdeclarelayer{background}
+\pgfdeclarelayer{foreground}
+\pgfsetlayers{background,main,foreground}
+
+\tikzstyle{lcomp}=[draw, fill=blue!20, text width=5em, 
+    text centered, minimum height=2.5em,text centered]
+
+\tikzstyle{ann} = [above, text width=5em]
+
+\tikzstyle{program} = [lcomp, text width=6em, fill=red!20, 
+    minimum height=6em, minimum width=10em, rounded corners,text centered, drop shadow]
+
+\tikzstyle{global} = [lcomp, text width=6em,
+    fill=green!20, minimum height=6em, minimum width=8em, rounded corners,text centered, drop shadow]
+
+\tikzstyle{reconf} = [lcomp, text width=8em, fill=gray!10, 
+    minimum height=4em, minimum width=8em, rounded corners,text centered, drop shadow]
+
+\tikzstyle{lf} = [lcomp, text width=8em, fill=yellow!20, 
+    minimum height=4em, minimum width=8em, rounded corners,text centered, drop shadow]
+
+\tikzstyle{local} = [draw, circle, text width=3em, fill=blue!20,
+	minimum height=3em, minimum width=3em, text centered, circular drop shadow]
+
+\tikzstyle{blank} = [node distance=1cm,minimum width=-1cm]
+
+\tikzstyle{vecArrow} = [thick, decoration={markings,mark=at position 0 with {\arrowreversed[semithick]{open triangle 60}},mark=at position
+   1 with {\arrow[semithick]{open triangle 60}}},
+   double distance=1.4pt, shorten >= 5.5pt, shorten <= -5.5pt,
+   preaction = {decorate},
+   postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt, shorten <= 4.5pt}]
+\tikzstyle{innerWhite} = [semithick, white,line width=1.4pt, shorten >= 4.5pt, shorten <= -7pt]
+
+\centering
+\begin{tikzpicture}
+	% Main Program
+    \node [program] (prog) {Main Program};
+
+    % Reconfiguration
+    \node [blank,right of=prog, node distance=1cm] (b1) {};
+    \node [reconf,below of=prog, node distance=3.5cm] (rec) {Reconfiguration Algorithm};
+    \node [reconf, right of=rec,node distance=5cm] (recdb) {Reconfiguration Database};
+    \node [blank, left of=rec, node distance=2cm] (b5) {};
+
+    % Load Flow
+    \node [lf, above of=prog, node distance=3cm] (ld) {Load Flow};
+
+    % Local Management
+    \node [blank, below of=prog, node distance=3cm] (b2) {};
+    \node [local, left of=prog, node distance=4cm] (lr) {LR};
+    \node [local, left of=lr, node distance=2cm] (vvc) {VVC};
+    \node [blank, left of=lr, node distance=1cm] (b3) {};
+    \node [blank, right of=lr, node distance=1cm] (b4) {};
+    \node [local, below of=b3, node distance=1.5cm] (oltc) {OLTC};
+    \node [blank, above of=oltc, node distance=3cm] (lmg) {\large Local Management};
+
+    % Global Management
+    \node [global,right of=prog, node distance=5cm] (gm) {Global Management};
+
+    \begin{pgfonlayer}{background}
+        \path (vvc.west)+(-0.5,1.8) node (a) {};
+        \path (oltc.south -| lr.east)+(+0.5,-0.2) node (b) {};
+        \path[fill=blue!10,rounded corners, draw=black!50, dashed]
+            (a) rectangle (b);
+
+        \path (rec.north west)+(-0.5,0.5) node (c) {};
+        \path (recdb.south east)+(+0.5,-0.5) node (d) {};
+        \path[fill=gray!05,rounded corners, draw=black!50, dashed]
+            (c) rectangle (d);
+    \end{pgfonlayer}
+
+    \draw[vecArrow] (prog.north)+(0,0.4) to (ld);
+    \draw[innerWhite] (prog.north)+(0,0.4) to (ld);
+
+    \draw[vecArrow] (lmg.north)+(0,0.4) |- (ld);
+    \draw[innerWhite] (lmg.north)+(0,0.4) |- (ld);
+
+    \draw[vecArrow] (gm.north)+(0,0.4) |- (ld);
+    \draw[innerWhite] (gm.north)+(0,0.4) |- (ld);
+
+	\draw[vecArrow] (b4)+(0.65,0) to (prog);
+    \draw[innerWhite] (b4)+(0.65,0) to (prog);
+
+    \draw[vecArrow] (prog.east)+(0.4,0) to (gm);
+    \draw[innerWhite] (prog.east)+(0.4,0) to (gm);
+
+	\draw[vecArrow] (rec.north)+(0,0.9) to (prog.south);
+    \draw[innerWhite] (rec.north)+(0,0.9) to (prog.south);
+
+    \draw[vecArrow] (recdb.north)+(0,0.9) to (gm.south);
+    \draw[innerWhite] (recdb.north)+(0,0.9) to (gm.south);
+
+    \draw[vecArrow] (gm.east)+(0.45,0) to node {} +(1.2,0) to node {} +(1.2,-5.3) to node {} +(-11.5,-5.3) to node {} +(-11.5,-2.45);
+    \draw[innerWhite] (gm.east)+(0.45,0) to node {} +(1.2,0) to node {} +(1.2,-5.3) to node {} +(-11.5,-5.3) to node {} +(-11.5,-2.45);
+    
+\end{tikzpicture}
+\caption{Components of the Algorithm}
+\labelFigure{fig:algocomp}
+\end{figure}
+
+\subsection{Reconfiguration Component}
+
+The reconfiguration component is a modular function that provides different reconfigured states for radially operated networks based on the load and DRES conditions in it. At the heart of the function is a modified version of the fuzzy multi-objective routine developed in \cite{Das2006}. Although there is more recent literature available, the reason why a simpler and older algorithm was chosen initially with an intention to have a perfect working example. Owing to the modular nature of the algorithm presented here, all one has to do to change the reconfiguration component is to write another routine with any reconfiguration method one wishes to have, and replace the existing one with the new one.\\
+
+The current routine uses a branch exchange method to reconfigure networks. First, all the normally open lines are pre-selected as possible candidates for exchange. A reduction step calculates the voltage difference between the nodes on either end of the candidate lines and chooses only the lines where it is higher than a pre-set value $\epsilon$. This speeds up the process as the closing of lines with very close terminal potentials will not have a major effect on network conditions. However, it is to be kept in mind that a very high value of $\epsilon$ will deem even suitable exchange processes unfit and cause the reconfiguration to fail. Typically, $\epsilon=0.01pu$. The line with the highest voltage difference across it is chosen as the line to be exchanged. This process can seem cumbersome, but it will help when other, more complex selection criteria are developed in future. If there are no lines across which the voltage difference is higher than $\epsilon$, the routine terminates.\\
+
+If a line is selected, it is closed and forms a loop. Then, each line in the loop is opened, restoring radiality, and the state of the distribution network is ascertained. The routine checks four objectives for every line opened, namely the reduction in power losses, the deviation in node voltages, deviation in line currents, and deviation in feeder currents. Each of these is assigned a membership function, as explained in \refAppendixOnly{algoappendix}, with values between 0 and 1, based on how they perform.\\
+
+For each line, the minimum value from each of these membership functions is chosen. Then, when all the lines have been opened one by one and their associated minimum membership function values noted, the maximum of these minimum membership functions is calculated, and the line associated with this value is chosen as the line to be exchanged. This opened line is not pre-selected later as a potential candidate. In the next iteration, once again, the pre-selection and selection processes happen, and this goes on and on until there are no lines left to be exchanged. Thus, reconfiguration is achieved.
+
+\subsection{Local Management Component}
+The local management component is used to manage violations locally. Making use of the different optimization routines developed earlier, the local management function can effectively manage the violations that are deemed ``local'' by the algorithm. How the algorithm deems violations ``local'' or otherwise is explained later. In a way, the local management component integrates all the optimization options except for reconfiguration.\\
+
+Firstly, when invoked, the function determines the type, and number of violations. For the nodes where the violations have occurred, the function then decides which nodes to use for the different optimization methods available. It does this by first finding the nodes which can potentially be used for optimization, and then filters the unwanted nodes out by finding which nodes actually have the required resources to perform optimization. For example, nodes immediately surrounding a node with violations are available for VVC. But among these nodes, the ones without any DRES connected are filtered out. Nodes for load reduction are also chosen only where such an option is available. The function then groups all the values of initial inputs into one variable $x0$, which is then sent to different \emph{fmincon} functions depending on the types, as already explained in the previous section.\\
+
+The variable $x0$ is de-constructed inside the respective \emph{fmincon} function. This is done with the use of a lookup table for cases. Depending upon the location and type of violations in a network, not all the optimization methods may be available. In order to easily pass information to the optimization function about what methods are available and to facilitate easy deconstruction of $x0$, the case is determined from a lookup table (\refTableOnly{caselocal}).
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{cccc}
+% \hline
+\rowcolor{gray!25}
+\textbf{OLTC} & \textbf{LR/LS} & \textbf{VVC} & \textbf{Case}\\
+\hline
+$0$ & $0$ & $0$ & $1$\\
+\rowcolor{gray!15}
+$0$ & $0$ & $1$ & $2$\\
+$0$ & $1$ & $0$ & $3$\\
+\rowcolor{gray!15}
+$0$ & $1$ & $1$ & $4$\\
+$1$ & $0$ & $0$ & $5$\\
+\rowcolor{gray!15}
+$1$ & $0$ & $1$ & $6$\\
+$1$ & $1$ & $0$ & $7$\\
+\rowcolor{gray!15}
+$1$ & $1$ & $1$ & $8$\\
+\hline
+\end{tabular}
+\caption{Case Selection based on Available Optimization Methods}
+\labelTable{caselocal}
+\end{table}
+
+Obviously, if the case is $1$, the local management function stops, as there is no optimization to be carried out. Otherwise, the program sends $x0$ and other variables to the respective optimization functions (depending on the type of violations).\\
+
+The result is then analysed to see if the number of violations are reduced or not. If no, then local management for the violations in question is deemed useless. The cost for managing violations is also checked, and if it is more than the cost that would be incurred if the violations were left as is, then the local management is deemed useless as well.\\
+
+The most important thing about the local management function is that it optimizes the network only for the hour during the day for which it is launched.
+
+\subsection{Global Management Component}
+If there are violations in the network are deemed to be ``global'' rather than ``local'', the global management function is invoked. This function is a recursive umbrella function which makes use of all the developed optimization options. The function, once launched, creates a parallel environment from that of the main program that launches it. It then proceeds to analyse, on two separate paths, different solutions for optimization during the rest of the day.\\
+
+Basically, what the function does is that from the hour \emph{h} when it is launched, it splits the scheduling horizon into two. The first horizon uses reconfiguration for hour \emph{h} and also uses the \emph{local optimization} methods in a global context, and then for the remaining time in the day, continues to function as if the main program would. The second horizon doesn't use reconfiguration, and tries to absolve the network of violations using all the \emph{local management} methods, in the global context. Then, it proceeds to work like the main program, for the remaining time in the day. So technically speaking, for the remaining time in the day, if there are more violations that are ``global'' in nature, the same function is launched recursively. For each and every recursion in both the scheduling horizons, the costs are calculated, and at the end of that recursion, the costs are compared. The solution with the least cost is chosen as the solution to be fed back to the calling function. The global management component is an exhaustive search component whose search horizon becomes narrower as time progresses.
+
+\subsection{Other Components and Functions}
+Several other functions have been developed to be used by (one of) the component(s). They have all been written as separate functions, and each of these functions is described below.\\
+
+A loop finding function has been developed to be used by the reconfiguration component, in order to find the loops created by closing NO switches. It achieves this by finding the shortest paths from nodes on either side of the NO line to the substation, with care taken to see that the paths do not go through the line itself. The function uses Dijkstra's algorithm to find the shortest paths, considering the network as a graph with all edges possessing the same weight. In any case, a radial network with only one NO closed, forming one loop, will only have two paths to the substation from a node in the loop.\\
+
+A function to remove sub-station nodes from nodes identified for VVC is implemented too. Since nodes are selected through linear search in an iterative manner, the input of a sub-station node to an iteration will result in the selection of nodes that are on other branches of the network, and hence after every iteration, this function is called to remove the sub-station nodes.\\
+
+A load flow function, originally developed by Marie-C\'{e}cile Alvarez-Herault, is integral to the functioning of the algorithm. At almost every step imaginable, a load flow is done to assess the network state. This provides us with the bus voltages and line currents, two of the most important parameters in the network.\\
+
+The three \emph{fmincon} functions, labelled `\emph{onlyV}', `\emph{onlyI}' and `\emph{bothVI}' are used to treat different violation occurrences separately. Given that the optimization has only one objective, the treatment of both current and voltage violations involves making a single objective for both the constraints. This is not really easy, and in future, it has been envisaged that this will be replaced with a multi-objective optimization function. Finally, another function which identifies the sub-station node for OLTC action is also developed.
+
+\section{Association of Costs}
+
+\lettrine[nindent=0pt]{T}{he} association of costs to all the constraints is a very important step in the algorithm. It has the potential to influence the results greatly, and a wrong choice of costs can provide unusable results. With this in mind, one cannot stress enough, the importance of an economic model for all the constraints.\\
+
+In any case, if the models are so developed that they are complete and take into account, all the issues that might arise out of actions for optimization, a solution with the lowest global cost can be obtained. This means that while the solution may cause a reduction in the lifetime of certain expensive devices, implementing the solution and replacing these devices once they fail will still be a cheaper solution than implementing other solutions. However, the development of such a model is cumbersome and will have to be left for the future.\\
+
+In this thesis, the possibility of development of a simplified  model is discussed and the choice of actual costs for constraints is shown.
+
+\subsection{Economic Model for Switching}
+As understood earlier, reconfiguration cannot be done often, the reason for this being either the logistical difficulty in doing so, or the danger of reduced lifetime of switches. A high cost associated to switching can deter the algorithm from reconfiguring at will, but might not provide us with the optimal configuration with the lowest global cost. A simple model for cost of switching can be described as:
+
+\begin{align*} 
+Cost/switching&=\frac{C_{sw}}{n_{sw}}+ C_{OM}+C_{log}\\
+C_{OM}&=c*f(t_{sw})
+\end{align*}\\
+
+Where $C_{sw}$ is the cost of purchasing the switch, $n_{sw}$ is the number of switching operations the switch is rated for during its entire lifetime, $C_{OM}$ is the estimated operation and maintenance costs of the switch during the time between switching operations (which takes into account the extra maintenance required for frequent switching and is therefore a constant value times a function of the interval between switching operations), and $C_{log}$ is the cost of logistics.
+
+\subsection{Economic Model for Load Reduction/Shedding}
+Economic models for load reduction/shedding are already present today and are used by aggregators and other such actors in the distribution network. Their model essentially provides them with the profits they have to make in order to survive. While some may argue that clients of aggregators are often short changed, it is noteworthy that the models they have developed are the most efficient, because their survival literally hinges on its infallibility.
+
+\subsection{Economic Model for OLTC}
+Like switches in the network, OLTCs can also not be operated frequently. And since their action is also a kind of switching, the model used for switching can be adapted for OLTCs as well.
+
+\begin{align*} 
+Cost/operation&=\frac{C_{OLTC}}{n_{op}}+ C_{OM}+C_{log}\\
+C_{OM}&=c*f(t_{op})
+\end{align*}\\
+Where $C_{OLTC}$ is the cost of purchasing the OLTC, $n_{op}$ is the number of operations the OLTC is rated for during its entire lifetime, $C_{OM}$ is the estimated operation and maintenance costs of the OLTC during the time between switching operations (which takes into account the extra maintenance required for frequent switching and is therefore a constant value times a function of the interval between operations), and $C_{log}$ is the cost of logistics.
+
+\subsection{Economic Model for Voltage VAr Control}
+Compensating distributed generators for their reactive power supply is fairly simple. Converters today are capable of active - reactive power conversion without any additional effort required. Therefore, the generators may be paid the same amount of money for the reactive power they produce as the active power they produce. Additionally, an annual contractual income may also be earned by the owners of these generators, for agreeing to participate in reactive power compensation.
+
+\subsection{Economic Model for Violations}
+Violations of voltage and current in networks are bad for several reasons. A lower-than-normal voltage or higher-than-normal current will accelerate the degradation of conductors, while higher voltages will cause degradation of insulation. The fact that the estimation of short and long-term effects of repeated occurrences of violations is difficult does not help either.\\
+
+The development of an economic model for violations is however very important because it is based on this model that the algorithm will decide whether clearing specific violations is economically feasible or not. For an initial assumption, the cost of violations can be a linear, or non-linear function of the ageing it causes on lines or insulation. In future work, complete models can be made based on detailed calculations of the effects of violations on the network.
+
+\section{Working of the Algorithm}
+\lettrine[nindent=0pt]{B}{ased} on the components developed and described in the previous section, the working of the algorithm is described here, and illustrated in \refFigureOnly{fig:algoflch} in \refAppendixOnly{algoappendix}.\\
+
+The main program first reads the data for the network to be optimized. This data is stored in a \emph{.mat} file in a particular format described in \refAppendixOnly{algoappendix}. Once this data is loaded, the program creates a database of reconfigurations. As explained earlier, this database contains a network configuration for every hour of the day for which forecast data is available, based on the maximum value of loads and DRES in each node for the remaining period of time in the day. This database will be made use of later.\\
+
+The program then launches an iterative violation finder. Say at hour $t_0$, violations are found. The nature, and the location of these violations in the network are determined, in order to ascertain the type of violation. Then, they are classified as either \emph{local} or \emph{global}. In this case, this is determined by whether the violations are present in the same feeder or not, although other selection criteria may also be employed. If the violations are deemed to be \emph{local}, the program launches the \emph{local management} component, which does its job as explained previously. Otherwise, the \emph{global management} component is launched. The operation then proceeds as explained in \refSectionOnly{algo:components}, under the \emph{Global Management Component}.

@@ -1,0 +1,420 @@
+% SVN info for this file
+%!TEX root = report.tex
+
+\svnidlong
+{$HeadURL$}
+{$LastChangedDate$}
+{$LastChangedRevision$}
+{$LastChangedBy$}
+
+\chapter{Results}
+\labelChapter{results}
+
+\begin{introduction}
+  This chapter presents the results obtained from the algorithm when applied on two different distribution networks. Results obtained during initial development are also shown.
+\end{introduction}
+
+\section{Initial Results - Development}
+
+\lettrine[nindent=0pt]{I}{nitially}, during the course of development, several results were obtained, many of which altered the choices made during the course of further work. The results of the Merlin and Back algorithm for various number and types of reconfigurations are shown in \refFigureOnly{fig:mandb}. The losses over a 24 hour period for the original networks are shown. Then, the losses for the same period are shown, if the network is reconfigured every hour for optimality. The maximum and average values of load (model A) and DRES at each node for the entire period is then calculated, and with these as input conditions, one reconfiguration is performed at the beginning of the day. The losses in both the cases for both the networks are also shown.\\
+
+\begin{figure}[!h]
+\begin{minipage}[!h]{.5\textwidth}
+	\centering
+    \setlength\figureheight{5cm}
+    \setlength\figurewidth{6cm}
+	\input{Graphs/MandB-PREDIS-Losses_oldload.tikz}
+\end{minipage}
+\begin{minipage}[!h]{.5\textwidth}
+	\centering
+	\setlength\figureheight{5cm}
+    \setlength\figurewidth{6cm}
+	\input{Graphs/MandB-Das-Losses_oldload.tikz}
+\end{minipage}
+\caption{Losses for Various Reconfiguration Approaches using Merlin and Back Method - PREDIS and Rural Networks}
+\labelFigure{fig:mandb}
+\end{figure}
+
+It can be clearly seen from the results that for the maximum load and DRES condition (hereafter referred to as the \emph{maximum} condition), the losses in both the networks are very close to the losses for hourly reconfiguration. This makes the former condition very interesting, as hourly reconfigurations of networks are next to impossible. For the rural network, there seems to be no discernible difference between the losses in the network with hourly reconfiguration and with one reconfiguration based on both the average and maximum values.\\
+
+\begin{figure}[!h]
+\begin{minipage}[!h]{.5\textwidth}
+	\centering
+    \setlength\figureheight{5cm}
+    \setlength\figurewidth{6cm}
+	\input{Graphs/Fuzzy-PREDIS-Losses_oldload.tikz}
+\end{minipage}
+\begin{minipage}[!h]{.5\textwidth}
+	\centering
+	\setlength\figureheight{5cm}
+    \setlength\figurewidth{6cm}
+	\input{Graphs/Fuzzy-Das-Losses_oldload.tikz}
+\end{minipage}
+\caption{Losses for Maximum Condition Reconfiguration Approach using Fuzzy Multi-Objective Method - PREDIS and Rural Networks}
+\labelFigure{fig:fuzzyrec}
+\end{figure}
+
+The \emph{maximum} condition for reconfiguration was implemented using the fuzzy reconfiguration algorithm as well, in order to prove that it decreases the losses too, when compared to the original network. It can be seen that the losses with the fuzzy algorithm are a touch more than the losses with the Merlin and Back method. This is normal, and as explained in \refChapterOnly{algo}, the reconfiguration has to also take into account three other objectives. There is however, a marked increase in the minimum voltage in the network, among other things. Both the examples therefore, clearly point that  for reconfiguration, the maximum values of load and DRES in each node for the time remaining in the day can taken as the input.\\
+
+A comparison between the two methods for the \emph{maximum} condition ensues. This establishes the superiority of the fuzzy reconfiguration algorithm over the Merlin and Back algorithm, and lends credibility to its use in the final algorithm. The results are shown in \refTableOnly{reconfcomp}.\\
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{lccc}
+	% \hline
+	\rowcolor{gray!25}
+	\multicolumn{1}{c}{\textbf{Parameter}} & \textbf{Original Network} & \textbf{Merlin \& Back} & \textbf{Fuzzy Algorithm}\\
+	\hline
+	\rowcolor{gray!25}
+	\multicolumn{4}{l}{\textbf{PREDIS Network}} \\
+	\hline
+	Power Losses (kWh) & $11503.77$ & $2678.49$ & $2796.41$ \\
+	% \hline
+	\rowcolor{gray!15}
+	Minimum Voltage (pu) & $0.9359$ & $0.9415$ & $0.9433$\\
+	% \hline
+	Voltage Violations & $70$ & $9$ & $5$ \\
+	\hline
+	\rowcolor{gray!25}
+	\multicolumn{4}{l}{\textbf{Rural Network}} \\
+	\hline
+	Power Losses (kWh) & $999.81$ & $814.11$ & $822.82$ \\
+	% \hline
+	\rowcolor{gray!15}
+	Minimum Voltage (pu) & $0.9262$ & $0.9410$ & $0.9462$\\
+	% \hline
+	Voltage Violations & $34$ & $11$ & $7$ \\
+	\hline
+\end{tabular}
+\caption{Comparison of Reconfiguration Results for `Maximum' Condition}
+\labelTable{reconfcomp}
+\end{table}
+
+\section{Results from the Algorithm}
+
+\lettrine[nindent=0pt]{O}{nce} all the components of the algorithm were developed, it was tested in two networks. The following costs were associated with each of the actions/constraints in the network:
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{cc}
+% \hline
+\rowcolor{gray!25}
+\textbf{Parameter} & \textbf{Cost}\\
+\hline
+Switching Operation & $300$ \euro \\
+% \hline
+\rowcolor{gray!15}
+Load Reduction & $6$ \euro/MWh \\
+% \hline
+OLTC Operation & $20$ \euro/Tap Change \\
+% \hline
+\rowcolor{gray!15}
+VVC & $132.9$ \euro/MVArh \\
+% \hline
+Violations & $500$ \euro/violation \\
+\hline
+\end{tabular}
+\caption{Costs Associated to Network Actions / Constraints}
+\labelTable{costnw}
+\end{table}
+
+The algorithm has an option between starting the day with either the original configuration of the network, or with the optimal configuration for the entire day (as calculated by the algorithm). The results obtained for the two networks, using the load and DRES models, are shown.
+
+\subsection{PREDIS Network}
+
+The detailed results for the PREDIS network are presented here. The results include a detailed analysis of the various parameters, along with graphs to show the improvement in the network.\\
+
+With load model A (\refChapterOnly{model}), the results obtained when starting with the original, and optimal configuration of the network at $0$h is shown below. It is to be noted that the cost incurred when beginning with the optimal configuration includes the cost incurred to reconfigure the network from its initial state. Therefore, it may seem to be higher than the cost incurred when starting with the original configuration in some cases.
+
+\begin{lstlisting}[title=Console Output With Load Model A]
+Money Spent When No Action is Taken: 41057.69 Euro
+Money Spent On Optimization (Original Configuration @ 0h): 14096.25 Euro
+Money Gained: 26961.44 Euro
+Total Load Reduced during Optimization: 354.0001 kWh
+Energy Supplied by DRES (via VVC): 512.1286 kVArh
+Number of Switching Operations: 8 (1 Reconfiguration(s))
+Number of OLTC Operations: 3
+--------------------------------------------------------------------------------------
+Money Spent On Optimization (Optimal Configuration @ 0h): 13393.9 Euro
+Money Gained: 27663.79 Euro
+Total Load Reduced during Optimization: 354.0001 kWh
+Energy Supplied by DRES (via VVC): 512.1286 kVArh
+Number of Switching Operations: 6 (1 Reconfiguration(s))
+Number of OLTC Operations: 3
+\end{lstlisting}
+\ \\
+With the associated costs, the DSO stands to gain around $27,000$ \euro\ through the course of the day if this algorithm is used to schedule and optimize the distribution network. This represents a $65.7$\% saving on the money spent by the DSO for the day.\\
+
+% \begin{lstlisting}[title=Console Output With Load Model A]
+% Money Spent When No Action is Taken: 41057.69 Euro
+% Money Spent On Optimization (Optimal Configuration @ 0h): 13393.9 Euro
+% Money Gained: 27663.79 Euro
+% Total Load Reduced during Optimization: 354.0001 kWh
+% Energy Supplied by DRES (via VVC): 512.1286 kVArh
+% Number of Switching Operations: 6 (1 Reconfiguration(s))
+% Number of OLTC Operations: 3
+% \end{lstlisting}
+% \ \\
+With the optimal configuration already used at $0$h, the monetary gains for the DSO stand at $67.4$\%. \refFigureOnly{fig:predislosscomp}, \refFigureOnly{fig:predisvtgcomp}, and \refFigureOnly{fig:predisviocomp} respectively show the reduction in losses from optimization, the voltage profiles in the network, and the number of violations (voltage and current), when beginning with the original configuration and with the optimal configuration.\\
+
+\begin{figure}[!h]
+\begin{minipage}[!h]{.5\textwidth}
+	\centering
+    \setlength\figureheight{5cm}
+    \setlength\figurewidth{6cm}
+	\input{Graphs/Results/PREDIS/OldLoad/LossesOrg.tikz}
+\end{minipage}
+\begin{minipage}[!h]{.5\textwidth}
+	\centering
+	\setlength\figureheight{5cm}
+    \setlength\figurewidth{6cm}
+	\input{Graphs/Results/PREDIS/OldLoad/LossesOpt.tikz}
+\end{minipage}
+\caption{PREDIS Network - Losses Comparison for the Algorithm with Original, and Optimal Configurations at $0$h (Model A)}
+\labelFigure{fig:predislosscomp}
+\end{figure}
+
+\begin{figure}[!h]
+\begin{minipage}[!h]{.5\textwidth}
+	\centering
+    \setlength\figureheight{5cm}
+    \setlength\figurewidth{6cm}
+	\input{Graphs/Results/PREDIS/OldLoad/VtgOrg.tikz}
+\end{minipage}
+\begin{minipage}[!h]{.5\textwidth}
+	\centering
+	\setlength\figureheight{5cm}
+    \setlength\figurewidth{6cm}
+	\input{Graphs/Results/PREDIS/OldLoad/VtgOpt.tikz}
+\end{minipage}
+\caption{PREDIS Network - Voltage Profile Comparison for the Algorithm with Original, and Optimal Configurations at $0$h (Model A)}
+\labelFigure{fig:predisvtgcomp}
+\end{figure}
+
+Because of the proactive-reactive nature of the algorithm, when beginning with the optimal configuration, we see that at one point of time ($4$h), the losses seem to be the same for the unoptimized, and the optimized network. This is normal, because if there are no violations during that particular hour (\refFigureOnly{fig:predisviocomp}), the algorithm is not designed to act on the network. While this may be a shortcoming, as far as the scope of this thesis is concerned, this feature was not developed for the lack of a proper economic model for the amount of money a DSO would be ready to spend in order to optimize the network, when there are no violations originally present. The cumulative losses throughout the day stand at $2990.83$ kWh and $3405.90$ kWh respectively. This means that the optimal configuration does not necessarily mean optimal losses (as explained in \refChapterOnly{algo}). The voltage profiles clearly improve in the network with both initial conditions. The minimum voltage in the network moves a lot closer to, and at times, even surpasses the average voltage in the unoptimized network. Overvoltage violations are also done away with efficiently.\\
+
+\begin{figure}[!h]
+\centering
+    \setlength\figureheight{5cm}
+    \setlength\figurewidth{14cm}
+	\input{Graphs/Results/PREDIS/OldLoad/VioBoth.tikz}
+	\caption{PREDIS Network - Comparison of no. of Violations for the Algorithm with Original, and Optimal Configurations at $0$h (Model A)}
+\labelFigure{fig:predisviocomp}
+\end{figure}
+
+With load model B, the results obtained are different naturally, and are shown, when starting with the original, and optimal configuration of the network at $0$h. The monetary savings here stand at $64.9$\%, as compared to a saving of $58.7$\% when the optimal configuration is used at $0$h.
+\begin{lstlisting}[title=Console Output With Load Model B]
+Money Spent When No Action is Taken: 35806.88 Euro
+Money Spent On optimizationation (Original Configuration @ 0h): 12560.6 Euro
+Money Gained: 23246.28 Euro
+Total Load Reduced during Optimization: 0.000149 kWh
+Energy Supplied by DRES (via VVC): 0 kVArh
+Number of Switching Operations: 10 (1 Reconfiguration(s))
+Number of OLTC Operations: 0
+--------------------------------------------------------------------------------------
+Money Spent On Optimization (Optimal Configuration @ 0h): 14793.89 Euro
+Money Gained: 21012.99 Euro
+Total Load Reduced during Optimization: 0.000149 kWh
+Energy Supplied by DRES (via VVC): 0 kVArh
+Number of Switching Operations: 6 (2 Reconfiguration(s))
+Number of OLTC Operations: 0
+\end{lstlisting}
+\ \\
+\refFigureOnly{fig:predislosscompB}, \refFigureOnly{fig:predisvtgcompB}, and \refFigureOnly{fig:predisviocompB} respectively show for load model B, the reduction in losses from optimization, the voltage profiles in the network, and the number of violations.
+
+% \begin{lstlisting}[title=Console Output With Load Model B]
+% Money Spent When No Action is Taken: 35806.88 Euro
+% Money Spent On Optimization (Optimal Configuration @ 0h): 14793.89 Euro
+% Money Gained: 21012.99 Euro
+% Total Load Reduced during Optimization: 0.000149 kWh
+% Energy Supplied by DRES (via VVC): 0 kVArh
+% Number of Switching Operations: 6 (2 Reconfiguration(s))
+% Number of OLTC Operations: 0
+% \end{lstlisting}
+
+\begin{figure}[!h]
+\begin{minipage}[!h]{.5\textwidth}
+	\centering
+    \setlength\figureheight{5cm}
+    \setlength\figurewidth{6cm}
+	\input{Graphs/Results/PREDIS/NewLoad/LossesOrg.tikz}
+\end{minipage}
+\begin{minipage}[!h]{.5\textwidth}
+	\centering
+	\setlength\figureheight{5cm}
+    \setlength\figurewidth{6cm}
+	\input{Graphs/Results/PREDIS/NewLoad/LossesOpt.tikz}
+\end{minipage}
+\caption{PREDIS Network - Losses Comparison for the Algorithm with Original, and Optimal Configurations at $0$h (Model B)}
+\labelFigure{fig:predislosscompB}
+\end{figure}
+
+\begin{figure}[!h]
+\begin{minipage}[!h]{.5\textwidth}
+	\centering
+    \setlength\figureheight{5cm}
+    \setlength\figurewidth{6cm}
+	\input{Graphs/Results/PREDIS/NewLoad/VtgOrg.tikz}
+\end{minipage}
+\begin{minipage}[!h]{.5\textwidth}
+	\centering
+	\setlength\figureheight{5cm}
+    \setlength\figurewidth{6cm}
+	\input{Graphs/Results/PREDIS/NewLoad/VtgOpt.tikz}
+\end{minipage}
+\caption{PREDIS Network - Voltage Profile Comparison for the Algorithm with Original, and Optimal Configurations at $0$h (Model B)}
+\labelFigure{fig:predisvtgcompB}
+\end{figure}
+
+The cumulative power losses for both the approaches with load model B stand at $3247.37$ kWh and $3218.75$ kWh respectively, as compared to cumulative original losses of $9833.56$ kWh. Although not a lot of load reduction, and no VVC is used in either case, the bus voltages throughout the network are very close to each other, evident from how close the optimal minimum, maximum and average voltages are throughout the day. Neither approach performs better when it comes to violations. This can be justified by the fact that these violations are found in nodes where load reduction cannot be sufficiently achieved or not enough reactive power is available for injection.\\
+
+\begin{figure}[!h]
+\centering
+    \setlength\figureheight{5cm}
+    \setlength\figurewidth{14cm}
+	\input{Graphs/Results/PREDIS/NewLoad/VioBoth.tikz}
+	\caption{PREDIS Network - Comparison of no. of Violations for the Algorithm with Original, and Optimal Configurations at $0$h (Model B)}
+\labelFigure{fig:predisviocompB}
+\end{figure}
+
+\subsection{Rural Network}
+
+With the rural network in place of the PREDIS network, the same tests were carried out, using load models A and B. The following results were obtained from the tests.
+
+\begin{lstlisting}[title=Console Output With Load Model A]
+Money Spent When No Action is Taken: 17132.87 Euro
+Money Spent On Optimization (Original Configuration @ 0h): 5245.7 Euro
+Money Gained: 11887.17 Euro
+Total Load Reduced during Optimization: 1.71e-06 kWh
+Energy Supplied by DRES (via VVC): 45.4232 kVArh
+Number of Switching Operations: 12 (1 Reconfiguration(s))
+Number of OLTC Operations: 1
+--------------------------------------------------------------------------------------
+Money Spent On Optimization (Optimal Configuration @ 0h): 6243.15 Euro
+Money Gained: 10889.73 Euro
+Total Load Reduced during Optimization: 1.44e-06 kWh
+Energy Supplied by DRES (via VVC): 39.9138 kVArh
+Number of Switching Operations: 0 (0 Reconfiguration(s))
+Number of OLTC Operations: 1
+\end{lstlisting}
+% \begin{lstlisting}[title=Console Output With Load Model A]
+% Money Spent When No Action is Taken: 17132.87 Euro
+% Money Spent On Optimization (Optimal Configuration @ 0h): 6243.15 Euro
+% Money Gained: 10889.73 Euro
+% Total Load Reduced during Optimization: 1.44e-06 kWh
+% Energy Supplied by DRES (via VVC): 39.9138 kVArh
+% Number of Switching Operations: 0 (0 Reconfiguration(s))
+% Number of OLTC Operations: 1
+% \end{lstlisting}
+\ \\
+The cumulative losses stand at $900.46$ kWh and $814.22$ kWh respectively, when beginning with the original and optimal configurations, and are shown along with a comparison of the violations, in \refFigureOnly{fig:daslossvioA}.\\
+
+\refFigureOnly{fig:dasvtgA} shows the comparison of the voltage profiles in the network. Once again that for the lack of a proper economic model, no optimization is performed when there are no violations. This explains why the original, and optimal voltages are virtually the same, except for when the original voltages violate limits. When beginning with the optimal configuration, the optimal voltages are better thanks to the configuration itself.
+
+\begin{figure}[H]
+\begin{minipage}[!h]{.5\textwidth}
+	\centering
+    \setlength\figureheight{5cm}
+    \setlength\figurewidth{6cm}
+	\input{Graphs/Results/Das/OldLoad/LossesBoth.tikz}
+\end{minipage}
+\begin{minipage}[!h]{.5\textwidth}
+	\centering
+	\setlength\figureheight{5cm}
+    \setlength\figurewidth{6cm}
+	\input{Graphs/Results/Das/OldLoad/VioBoth.tikz}
+\end{minipage}
+\caption{Rural Network - Losses \& Violations Comparison for the Algorithm (Model A)}
+\labelFigure{fig:daslossvioA}
+\end{figure}
+
+\begin{figure}[H]
+\begin{minipage}[!h]{.5\textwidth}
+	\centering
+    \setlength\figureheight{5cm}
+    \setlength\figurewidth{6cm}
+	\input{Graphs/Results/Das/OldLoad/VtgOrg.tikz}
+\end{minipage}
+\begin{minipage}[!h]{.5\textwidth}
+	\centering
+	\setlength\figureheight{5cm}
+    \setlength\figurewidth{6cm}
+	\input{Graphs/Results/Das/OldLoad/VtgOpt.tikz}
+\end{minipage}
+\caption{Rural Network - Voltage Profile Comparison for the Algorithm (Model A)}
+\labelFigure{fig:dasvtgA}
+\end{figure}
+
+With load model B, the results obtained are shown.
+
+\begin{lstlisting}[title=Console Output With Load Model B]
+Money Spent When No Action is Taken: 17135.85 Euro
+Money Spent On Optimization (Original Configuration @ 0h): 7817.95 Euro
+Money Gained: 9317.9 Euro
+Total Load Reduced during Optimization: 1.82e-06 kWh
+Energy Supplied by DRES (via VVC): 0 kVArh
+Number of Switching Operations: 14 (2 Reconfiguration(s))
+Number of OLTC Operations: 0
+--------------------------------------------------------------------------------------
+Money Spent On Optimization (Optimal Configuration @ 0h): 6312.31 Euro
+Money Gained: 10823.54 Euro
+Total Load Reduced during Optimization: 1.74e-06 kWh
+Energy Supplied by DRES (via VVC): 0 kVArh
+Number of Switching Operations: 2 (1 Reconfiguration(s))
+Number of OLTC Operations: 0
+\end{lstlisting}
+% \begin{lstlisting}[title=Console Output With Load Model B]
+% Money Spent When No Action is Taken: 17135.85 Euro
+% Money Spent On Optimization (Optimal Configuration @ 0h): 6312.31 Euro
+% Money Gained: 10823.54 Euro
+% Total Load Reduced during Optimization: 1.74e-06 kWh
+% Energy Supplied by DRES (via VVC): 0 kVArh
+% Number of Switching Operations: 2 (1 Reconfiguration(s))
+% Number of OLTC Operations: 0
+% \end{lstlisting}
+
+\refFigureOnly{fig:daslossvioB} shows the comparison of losses in the network, and also the violations, with both the approaches in the algorithm. The cumulative losses stand at $887.49$ kWh and $845.08$ kWh, as against original losses of $1022.18$ kWh. The violations in the network are also the same with both the approaches.
+
+\begin{figure}[!h]
+\begin{minipage}[!h]{.5\textwidth}
+	\centering
+    \setlength\figureheight{5cm}
+    \setlength\figurewidth{6cm}
+	\input{Graphs/Results/Das/NewLoad/LossesBoth.tikz}
+\end{minipage}
+\begin{minipage}[!h]{.5\textwidth}
+	\centering
+	\setlength\figureheight{5cm}
+    \setlength\figurewidth{6cm}
+	\input{Graphs/Results/Das/NewLoad/VioBoth.tikz}
+\end{minipage}
+\caption{Rural Network - Losses \& Violations Comparison for the Algorithm (Model B)}
+\labelFigure{fig:daslossvioB}
+\end{figure}
+
+\begin{figure}[H]
+\begin{minipage}[!h]{.5\textwidth}
+	\centering
+    \setlength\figureheight{5cm}
+    \setlength\figurewidth{6cm}
+	\input{Graphs/Results/Das/NewLoad/VtgOrg.tikz}
+\end{minipage}
+\begin{minipage}[!h]{.5\textwidth}
+	\centering
+	\setlength\figureheight{5cm}
+    \setlength\figurewidth{6cm}
+	\input{Graphs/Results/Das/NewLoad/VtgOpt.tikz}
+\end{minipage}
+\caption{Rural Network - Voltage Profile Comparison for the Algorithm (Model B)}
+\labelFigure{fig:dasvtgB}
+\end{figure}
+
+In \refFigureOnly{fig:dasvtgB}, the voltage profiles in the network are shown. Again, when beginning with the original configuration, not until the $10^{\mathrm{th}}$ hour, when the first violation in the network occurs, that the voltages in the optimized network start to deviate from the voltages in the original network. As indicated earlier, during hours $2$ and $3$, power is fed back into the transmission network owing to a DRES insertion rate higher than $100$\%. This problem will be treated during future developments.
+
+\section{Analysis of the Results}
+
+\lettrine[nindent=0pt]{T}{he} \textsc{matlab} program produces two results, one with the details of all the buses in the network for each hour, including the voltages, angles, loads, DRES (along with reactive power inputs) and OLTC settings. The other has all the details of lines in networks, more importantly, the details of lines that are open or closed every hour.\\
+
+An analysis of the results shows some very interesting aspects of the algorithm. When compared to the initial results, the final algorithm produces results with higher energy losses. This is justified as the initial results do not take into account several factors, including the solution with lowest cost (the initial results have no costs associated to any factor), nor do they take into account the current violations, which requires a more sophisticated optimization routine, and which naturally requires trading-off between several parameters. Hence, the algorithm definitely performs better than any individual component does.\\
+
+The second noteworthy thing is the time taken by the algorithm to do its job. One would certainly think that the rural network, with a higher number of nodes, would result in the algorithm taking longer. Surprisingly, it is the PREDIS network, with more violations than the other one, requiring much more effort from the algorithm. Even then, with both the networks, considering that the algorithm is performs a recursive, exhaustive search, the maximum time the algorithm takes is $90$ seconds. This is very well within acceptable limits.

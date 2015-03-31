@@ -1,0 +1,455 @@
+% SVN info for this file
+%!TEX root = report.tex
+\svnidlong
+{$HeadURL$}
+{$LastChangedDate$}
+{$LastChangedRevision$}
+{$LastChangedBy$}
+
+
+\chapter{Load and DRES Models}
+\labelAppendix{loaddresmodels}
+
+\begin{introduction}
+In this appendix, the construction of raw models for load and DRES is elaborated.
+\end{introduction}
+
+\section{Load Modeling}
+
+Both models assume that there are four different types of loads, namely \emph{Residential}, \emph{Industrial}, \emph{Commercial}, and \emph{Public Lighting}. Each of these loads vary in a particular fashion throughout the day. These values are typical and their pattern is understandable from a general point of view. 
+
+\refTableOnly{model1weights} and \refTableOnly{model2weights} present the weights of each of the loads with respect to their base values (for one day, and for the two different models). \refFigureOnly{fig:model1weights} and \refFigureOnly{fig:model2weights} illustrate the same.
+
+These load models will show the following:
+
+\begin{itemize}
+\item Public Lighting is a minimum during daytime.
+\item Residential loads peak during the evening in urban areas (Model 1) and during the day in rural areas (Model 2).
+\item Commercial loads peak during the day.
+\item And Industrial loads in rural centres work during the night, when the price of electricity is cheap.
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ccccc|ccccc}
+% \hline
+\rowcolor{gray!25}
+\textbf{Hour} & \textbf{R} & \textbf{I} & \textbf{C} & \textbf{L} & \textbf{Hour} & \textbf{R} & \textbf{I} & \textbf{C} & \textbf{L}\\
+\hline
+$0:00$ & $1.2$ & $0.9$ & $0.5$ & $0.93$ & $12:00$ & $0.7$ & $1.15$ & $1.6$ & $0.05$\\
+% \hline
+\rowcolor{gray!15}
+$1:00$ & $1.05$ & $0.85$ & $0.5$ & $0.93$ & $13:00$ & $0.75$ & $1$ & $1.45$ & $0.05$\\
+% \hline
+$2:00$ & $0.85$ & $0.85$ & $0.45$ & $0.92$ & $14:00$ & $0.75$ & $1.2$ & $1.5$ & $0.05$\\
+% \hline
+\rowcolor{gray!15}
+$3:00$ & $0.95$ & $0.85$ & $0.45$ & $0.93$ & $15:00$ & $0.75$ & $1.15$ & $1.5$ & $0.05$\\
+% \hline
+$4:00$ & $0.9$ & $0.8$ & $0.4$ & $0.93$ & $16:00$ & $0.8$ & $1.1$ & $1.5$ & $0.05$\\
+% \hline
+\rowcolor{gray!15}
+$5:00$ & $0.8$ & $0.8$ & $0.4$ & $0.93$ & $17:00$ & $0.85$ & $1.05$ & $1.45$ & $0.025$\\
+% \hline
+$6:00$ & $0.8$ & $0.8$ & $0.5$ & $0.93$ & $18:00$ & $1.35$ & $1$ & $1.3$ & $0.85$\\
+% \hline
+\rowcolor{gray!15}
+$7:00$ & $0.6$ & $0.8$ & $0.55$ & $0.95$ & $19:00$ & $1.6$ & $1$ & $1.15$ & $0.93$\\
+% \hline
+$8:00$ & $0.65$ & $0.9$ & $1.15$ & $0.125$ & $20:00$ & $1.65$ & $1.05$ & $0.85$ & $0.93$\\
+% \hline
+\rowcolor{gray!15}
+$9:00$ & $0.55$ & $1.15$ & $1.5$ & $0.05$ & $21:00$ & $1.65$ & $1.05$ & $0.75$ & $0.93$\\
+% \hline
+$10:00$ & $0.6$ & $1.15$ & $1.55$ & $0.05$ & $22:00$ & $1.7$ & $1$ & $0.6$ & $0.93$\\
+% \hline
+\rowcolor{gray!15}
+$11:00$ & $0.65$ & $1.2$ & $1.55$ & $0.05$ & $23:00$ & $1.55$ & $0.95$ & $0.6$ & $0.93$\\
+\hline
+\end{tabular}
+\caption{Load Model 1 - Weights}
+\labelTable{model1weights}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\setlength\figureheight{4cm}
+\setlength\figurewidth{10cm}
+\input{Graphs/Model-Yin.tikz}
+\caption{Load Model 1 - Weights}
+\labelFigure{fig:model1weights}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ccccc|ccccc}
+% \hline
+\rowcolor{gray!25}
+\textbf{Hour} & \textbf{R} & \textbf{I} & \textbf{C} & \textbf{L} & \textbf{Hour} & \textbf{R} & \textbf{I} & \textbf{C} & \textbf{L}\\
+\hline
+$0:00$ & $0.37$ & $0.5$ & $0.275$ & $0.93$ & $12:00$ & $0.7$ & $0.5$ & $0.925$ & $0.05$\\
+% \hline
+\rowcolor{gray!15}
+$1:00$ & $0.35$ & $0.375$ & $0.275$ & $0.93$ & $13:00$ & $0.925$ & $0.475$ & $0.9$ & $0.05$\\
+% \hline
+$2:00$ & $0.3$ & $0.29$ & $0.275$ & $0.92$ & $14:00$ & $0.725$ & $0.6$ & $0.88$ & $0.05$\\
+% \hline
+\rowcolor{gray!15}
+$3:00$ & $0.27$ & $0.275$ & $0.275$ & $0.93$ & $15:00$ & $0.4$ & $0.5$ & $0.8$ & $0.05$\\
+% \hline
+$4:00$ & $0.27$ & $0.275$ & $0.275$ & $0.93$ & $16:00$ & $0.7$ & $0.675$ & $0.6$ & $0.05$\\
+% \hline
+\rowcolor{gray!15}
+$5:00$ & $0.25$ & $0.23$ & $0.3$ & $0.93$ & $17:00$ & $0.8$ & $0.6$ & $0.5$ & $0.025$\\
+% \hline
+$6:00$ & $0.25$ & $0.23$ & $0.35$ & $0.93$ & $18:00$ & $0.925$ & $0.875$ & $0.45$ & $0.85$\\
+% \hline
+\rowcolor{gray!15}
+$7:00$ & $0.25$ & $0.42$ & $0.75$ & $0.95$ & $19:00$ & $0.98$ & $0.9$ & $0.41$ & $0.93$\\
+% \hline
+$8:00$ & $0.23$ & $0.4$ & $0.88$ & $0.125$ & $20:00$ & $1.025$ & $0.95$ & $0.4$ & $0.93$\\
+% \hline
+\rowcolor{gray!15}
+$9:00$ & $0.2$ & $0.58$ & $0.95$ & $0.05$ & $21:00$ & $0.8$ & $1$ & $0.42$ & $0.93$\\
+% \hline
+$10:00$ & $0.75$ & $0.57$ & $0.925$ & $0.05$ & $22:00$ & $0.575$ & $0.95$ & $0.41$ & $0.93$\\
+% \hline
+\rowcolor{gray!15}
+$11:00$ & $0.82$ & $0.52$ & $0.95$ & $0.05$ & $23:00$ & $0.4$ & $0.775$ & $0.35$ & $0.93$\\
+\hline
+\end{tabular}
+\caption{Load Model 2 - Weights}
+\labelTable{model2weights}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\setlength\figureheight{4cm}
+\setlength\figurewidth{10cm}
+\input{Graphs/Model-Lopez.tikz}
+\caption{Load Model 2 - Weights}
+\labelFigure{fig:model2weights}
+\end{figure}
+
+Based on the variations observed in the models, it appears that \emph{Model 1} would be better suited for urban networks while \emph{Model 2} would be better suited for rural networks.
+
+\section{DRES Modeling}
+
+As far as the scope of this thesis is concerned, DRES is modeled randomly, in order to represent their stochastic nature. This has been done using a random number generator function in order to remove any user bias that might produce more favourable results than normal. However, for solar power production, the random number generator is modified in order to fit a typical solar power production curve, peaking during midday.
+
+\chapter{Appendix to the Algorithm}
+\labelAppendix{algoappendix}
+
+\begin{introduction}
+In this appendix, the assignment of membership functions to the reconfiguration component of the algorithm is explained, followed by the data format for \emph{.mat} network files fed to the program, and finally a flowchart explaining the working of the algorithm is shown.
+\end{introduction}
+
+\section*{Reconfiguration Algorithm Membership Functions}
+
+\begin{itemize}
+
+\item \underline{Real Power Loss Reduction ($\mu L_i$)}: This membership defines the active or real power loss reduced by each of the branches in comparison to the power losses in the original/unoptimized network. This is done as follows:
+\begin{align*} 
+x_i &= \frac{PLOSS(i)}{PLOSS0} & &i= 1,2,N_k\\
+\mu L_i &= \frac{(x_{max}-x_i)}{(x_{max}-x_{min})} & &\mathrm{for}\ x_{min}<x_i<x_{max}\\
+\mu L_i &=0 & &\mathrm{for}\ x_i\le x_{min}\\
+\mu L_i &=1 & &\mathrm{for}\ x_i\ge x_{max}
+\end{align*} 
+
+Where $N_k$ is the number of branches in the loop.\\
+
+\item \underline{Maximum Node Voltage Deviation ($\mu V_i$)}: This membership function defines the maximum node voltage deviation in the network for the opening of every branch, the objective being this should be within the maximum current carrying capacity of branches.
+\begin{align*} 
+y_i &= |min(V_{nodes})-V_s|\\
+\mu V_i &= \frac{(y_{max}-y_i)}{(y_{max}-y_{min})} & &\mathrm{for}\ y_{min}<y_i<y_{max}\\
+\mu V_i &=1 & &\mathrm{for}\ y_i\le y_{min}\\
+\mu V_i &=0 & &\mathrm{for}\ y_i\ge y_{max}
+\end{align*} 
+
+Where $V_s$ is the voltage in the substation (source node).\\
+\newpage
+\item \underline{Maximum Branch Current Loading Index ($\mu A_i$)}: This membership function defines the maximum branch current loading deviation in the network for the opening of every branch, the objective being this should be small as possible.
+\begin{align*} 
+z_i &= max\left(\frac{I}{I_{max}}\right) & &\mathrm{for\ every\ individual\ branch}\\
+\mu A_i &= \frac{(z_{max}-z_i)}{(z_{max}-z_{min})} & &\mathrm{for}\ z_{min}<z_i<z_{max}\\
+\mu A_i &=1 & &\mathrm{for}\ z_i\le z_{min}\\
+\mu A_i &=0 & &\mathrm{for}\ z_i\ge z_{max}
+\end{align*} 
+\item \underline{Feeder Load Balancing ($\mu B_i$)}: This membership function defines how the loads in the network are balanced across the substation feeders in the network for the opening of every branch, the objective being that the loads should be as equally distributed as possible.
+\begin{align*} 
+u_i &= max\left(\frac{IF_{max}-IF_{feeder}}{IF_{max}}\right) & &\mathrm{for\ every\ individual\ feeder}\\
+\mu B_i &= \frac{(u_{max}-u_i)}{(u_{max}-u_{min})} & &\mathrm{for}\ u_{min}<u_i<u_{max}\\
+\mu B_i &=1 & &\mathrm{for}\ u_i\le u_{min}\\
+\mu B_i &=0 & &\mathrm{for}\ u_i\ge u_{max}
+\end{align*} 
+\end{itemize}
+The choice of the \emph{max} and \emph{min} values in each of the membership functions has to be made carefully. This influences the membership functions. Naturally, these values are different for each network. Each membership function can also be weighted with $\mu$.\\
+
+
+\section*{Data Formats for Network Files}
+
+\subsection*{DRES Production Data Format}
+
+DRES data is represented in an $n*t$ matrix where $n$ is the number of buses in the distribution network and $t$ is the time period (24). Buses where there is no DRES production are indicated with a $0$. Each field in the matrix therefore indicates the active power produced by DGs connected to the row (bus) during the hour of the day (column).
+
+\subsection*{Load Consumption Data Format}
+The load consumption data format is similar to DRES but it is instead a 3-D matrix with dimensions $n*t*2$ where each layer holds the active, and reactive power consumption in each bus for each hour respectively.
+
+\subsection*{Load Reduction Data Format}
+
+The load that can be reduced at every bus is fed in an $n*1$ matrix. This can changed to $n*t$ if at every hour, the load percentage that can be reduced changes (which will be the case in real networks).
+
+\subsection*{Adjacency Matrix Data Format}
+The Adjacency matrix of the network (with all NO lines closed) is fed as an $n*n$ matrix. Connections are represented by $1$s and other elements are $0$s.
+
+\subsection*{Bus Details Data Format}
+Details of the bus are fed in an $n*15$ matrix. The purpose of each column of the matrix is shown in \refTableOnly{businp}.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{cc}
+% \hline
+\rowcolor{gray!25}
+\textbf{Column No.} & \textbf{Details}\\
+\hline
+$1$ & Bus numbers ($1$ to n)\\
+\rowcolor{gray!15}
+$2$ & Voltage Guess (for load flow, $1pu$)\\
+$3$ & Bus Angle Guess (for load flow, $0^{\circ}$)\\
+\rowcolor{gray!15}
+$4$ & DRES Active Power Production ($pu$)\\
+$5$ & DRES Reactive Power Production ($pu$)\\
+\rowcolor{gray!15}
+$6$ & Load Active Power Consumption ($pu$)\\
+$7$ & Load Reactive Power Consumption ($pu$)\\
+\rowcolor{gray!15}
+$8$ & Don't Care (X)\\
+$9$ & Don't Care (X)\\
+\rowcolor{gray!15}
+$10$ & Bus Type ($1$ - Slack, $2$ - Generator, $3$ - Load)\\
+$11$ & Don't Care (X)\\
+\rowcolor{gray!15}
+$12$ & Don't Care (X)\\
+$13$ & Don't Care (X)\\
+\rowcolor{gray!15}
+$14$ & OLTC Upper Limit ($1.05pu$)\\
+$15$ & OLTC Lower Limit ($1.05pu$)\\
+\hline
+\end{tabular}
+\caption{Details for Bus Data Matrix}
+\labelTable{businp}
+\end{table}
+
+\subsection*{Line Details Data Format}
+Line details for the network are fed in a matrix with dimensions of $m*6$, where `$m$' is the number of lines present in the network. The details of each of the $6$ columns is shown in \refTableOnly{lineinp}.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{cc}
+% \hline
+\rowcolor{gray!25}
+\textbf{Column No.} & \textbf{Details}\\
+\hline
+$1$ & Source Bus Numbers ($1$ to n)\\
+\rowcolor{gray!15}
+$2$ & Destination Bus Numbers ($1$ to n)\\
+$3$ & Resistance \emph{R} of line (in $pu$)\\
+\rowcolor{gray!15}
+$4$ & Reactance \emph{X} of line (in $pu$)\\
+$5$ & Half Shunt Capacitance \emph{C/2} of line (in $pu$)\\
+\rowcolor{gray!15}
+$6$ & Binary Value ($1$ - NC; $0$ - NO)\\
+\hline
+\end{tabular}
+\caption{Details for Line Data Matrix}
+\labelTable{lineinp}
+\end{table}
+
+\subsection*{Maximum Current Data Format}
+The maximum current that can be carried by different lines is fed using a matrix with dimensions of $m*1$.
+
+\subsection*{OLTC Steps Data Format}
+As already discussed, OLTC optimization is done while respecting the minimum step resolution of the OLTCs. Therefore, the various voltage steps of the OLTC are fed into a 1D matrix.
+
+\subsection*{Additional Parameters for Optimization}
+Some additional parameters are also passed to the program in a matrix shown in \refTableOnly{params}.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{cc}
+% \hline
+\rowcolor{gray!25}
+\textbf{Column No.} & \textbf{Details}\\
+\hline
+Line Index where Tie Lines Begin & $0$/$1$ ($0$ - Tie Lines not in loop, $1$ - Tie Lines in loop)\\
+% \hline
+\rowcolor{gray!15}
+$x_{max}$ & $x_{min}$\\
+% \hline
+$y_{max}$ & $y_{min}$\\
+% \hline
+\rowcolor{gray!15}
+$z_{max}$ & $z_{min}$\\
+% \hline
+$u_{max}$ & $u_{min}$\\
+% \hline
+\rowcolor{gray!15}
+$S_{base}$ & No. of Feeders\\
+% \hline
+$\mu$L & $\mu$V\\
+% \hline
+\rowcolor{gray!15}
+$\mu$A & $\mu$B\\
+\hline
+\end{tabular}
+\caption{Additional Parameters to Program}
+\labelTable{params}
+\end{table}
+
+\subsection*{Sub-station Indices}
+A matrix with the different sub-station nodes is also made. This helps with the identification of nodes for OLTC and also to eliminate these nodes when optimization with VVC and Load Reduction happens.
+
+\newpage
+%
+%
+%-------------------------------------------------------|
+%-------------------------------------------------------|
+%			   Flow Chart of the Algorithm 				|
+%-------------------------------------------------------|
+%-------------------------------------------------------|
+\begin{sidewaysfigure}
+\begin{tikzpicture}[node distance = 1.5cm, auto]
+\scriptsize
+
+	% Define block styles
+	\tikzstyle{decision} = [diamond, draw, fill=yellow!10, 
+    text width=4.5em, text badly centered, node distance=3cm, inner sep=2pt]
+	\tikzstyle{block} = [rectangle, draw, fill=blue!10, 
+    text width=12em, text centered, minimum height=2em, minimum width=12em]
+	\tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, text centered, text width=10em, minimum width=10em, draw, fill=blue!10]
+	\tikzstyle{line} = [draw, -latex']
+	\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm,
+    minimum height=2em]
+	\tikzstyle{con} = [draw, circle,fill=green!20, node distance=3cm,
+    minimum height=2em]
+	\tikzstyle{blank} = [node distance=1cm,minimum width=-1cm]
+	\tikzstyle{legend} = [rectangle, draw,
+    text width=16em, minimum height=2em, minimum width=17em]
+
+	% Main Flow Chart
+	\node [blank] (start) {};
+	\node [cloud, below of=start, node distance=0cm] (init) {Start};
+   	\node [io, below of=init, node distance=1cm] (load) {Load Network Data\\$cost=0$};
+	\node [block, below of=load, node distance=1.6cm] (rec1) {Create Hourly Reconfiguration Database (optimality for remaining hours)\\ $hr=0,\ opt=1$};
+	\node [decision, below of=rec1, node distance=2.2cm] (check1) {Check C1};
+	\node [blank, below of=rec1,node distance=1.0cm] (b1) {};
+	\node [con, left of=b1] (V1_1) {V1};
+	\node [con, left of=check1] (1V_1) {1V};
+	\node [con, right of=check1] (2V_1) {2V};
+	\node [con, below of=2V_1, node distance=2.1cm] (V2_1) {V2};
+	\node [blank, below of=check1] (b2) {};
+	\node [io, below of=check1, node distance=2.1cm] (fin1) {All Hourly Data;\\Select Solution with Lowest Total Cost};
+	\node [cloud, below of=fin1, node distance=1.5cm] (stop) {Stop};
+
+	% Main Flowchart Paths
+	\path [line] (init) -- (load);
+	\path [line] (load) -- (rec1);
+	\path [line] (rec1) -- (check1);
+	\path [line] (V1_1) -- ($(b1.east)!0.5!(b1.west)$);
+	\path [line] (check1.west) -- node [yshift=1.4em]  {Same} node {Feeder} (1V_1);
+	\draw[dashed,->] (1V_1) -- (V1_1);
+	\path [line] (check1.east) -- node {Different} node  [yshift=-1.4em] {Feeders} (2V_1);
+	\path [line] (V2_1) -- (fin1);
+	\draw[dashed,->] (2V_1) -- (V2_1);
+	\path [line] (check1) -- node [near start] {Time} node [yshift=-0.3em] {Up} (fin1);
+	\path [line] (fin1) -- (stop);
+
+	% V1 Flowchart
+	\node [con, right of= start, node distance=5.9cm](1V) {1V};
+	\node [io, below of=1V, node distance=1cm] (read1V) {Read Data};
+	\node [decision, below of=read1V, node distance=1.8cm](des1V_V) {Voltage Vio.?};
+	\node [block, below of=des1V_V, node distance=1.8cm] (conV) {Consider Nearby Nodes};
+	\node [decision, below of=conV, node distance=1.8cm](des1V_I) {Current Vio.?};
+	\node [block, below of=des1V_I, node distance=1.8cm] (conI) {Consider Downstream Nodes};
+	\node [block, below of=conI, node distance=1.2cm] (write1V) {Perform VVC, OLTC, Load Reduction};
+	\node [decision, below of=write1V, node distance=1.7cm] (ok1V) {Check C2};
+	\node [block, right of=ok1V, node distance=3.5cm, minimum width=9em, text width=9em] (no1V) {$opt=0,\ cost = 0$};
+	\node [block, below of=ok1V, node distance=1.75cm] (res1V) {Send Solution and Cost; $hr++$};
+	\node [con, right of=res1V, node distance=3.5cm] (V1) {V1};
+
+	% V1 Flowchart Paths
+	\path [line] (1V) -- (read1V);
+	\path [line] (read1V) -- (des1V_V);
+	\path [line] (des1V_V) -- node {Yes} (conV);
+	\path [line] (des1V_V.east) --  node [near start] {No} +(1.1,0) |- (des1V_I.east);
+	\path [line] (conV) -- (des1V_I);
+	\path [line] (des1V_I) -- node {Yes} (conI);
+	\path [line] (des1V_I.west) --  node [near start,yshift=1.4em] {No} +(-1.1,0) |- (write1V.west);
+	\path [line] (conI) -- (write1V);
+	\path [line] (write1V) -- (ok1V);
+	\path [line] (ok1V) --  node [near start] {Yes} (res1V);
+	\path [line] (ok1V) -- node {No} (no1V);
+	\path [line] (no1V) -- (V1);
+	\path [line] (res1V) -- (V1);
+
+	% V2 Flowchart
+	\centering
+	\node [con, right of= start, node distance=15cm](2V) {2V};
+	\node [block, below of=2V,minimum width=8cm,text width=8cm] (parallel) {Parallely Analyze Scenarios\\Cost -$>$ Cost 		1 \& Cost 2};
+	\node [blank, below of=parallel, node distance=2.2cm] (bx) {};
+	\node [block, left of=bx, node distance=3cm] (reconf) {Reconfiguration with New Conditions (from database); Load Reduction, OLTC, VVC etc.,\\ Add to cost; $opt=1$};
+	\node [block, right of=bx, node distance=3cm] (lrvvc) {Load Reduction, OLTC, VVC etc., without Reconfiguration\\ Add to cost; $opt=1$};
+	\node [blank, below of=reconf, node distance=1.225cm] (b3) {};
+	\node [decision, below of=reconf, node distance=2.5cm] (check2) {Check C1};
+	\node [con, left of=b3] (V1_2) {V1};
+	\node [con, left of=check2] (1V_2) {1V};
+	\node [block, below of=check2, node distance=2cm] (C1) {Compute Cost 1};
+
+	\node [con, below of=2V, node distance=6.2cm] (2V_2) {2V};
+	\node [con, below of=2V_2, node distance=1.5cm] (V2_2) {V2};
+	\node [blank, below of=check2] (b4) {};
+	\node [blank, below of=lrvvc, node distance=1.145cm] (b5) {};
+	\node [decision, below of=lrvvc, node distance=2.5cm] (check3) {Check C1};
+	\node [con, right of=b5] (V1_3) {V1};
+	\node [con, right of=check3] (1V_3) {1V};
+	\node [block, below of=check3, node distance=2cm] (C2) {Compute Cost 2};
+
+	\node [decision, below of=parallel, node distance=8.5cm] (check4) {Aggregate All Solutions};
+	\node [io, below of=check4, node distance=2.25cm, text width=4cm] (fin2) {Send Solutions to Calling Block};
+	\node [con, below of=fin2, node distance=1.25cm] (V2) {V2};
+	
+	%V2 Flowchart Paths
+	\path [line] (2V) -- (parallel);
+	\path [line]  ($(parallel.south)!0.7305!(parallel.south west)$) -- (reconf.north);
+	\path [line]  ($(parallel.south)!0.7305!(parallel.south east)$) -- (lrvvc.north);
+	\path [line] (reconf) -- (check2);
+	\path [line] (lrvvc) -- (check3);
+	\path [line] (V1_2) -- ($(b3.east)!0.5!(b3.west)$);
+	\path [line] (V1_3) -- ($(b5.east)!0.5!(b5.west)$);
+	\path [line] (check2.east) -- node {Different} node  [yshift=-1.4em] {Feeders} (2V_2);
+	\path [line] (check3.west) -- node  [yshift=1.4em] {Different} node {Feeders} (2V_2);
+	\path [line] (V2_2) -- (check4);
+	\draw[dashed,->] (2V_2) -- (V2_2);
+	\path [line] (check2.west) -- node  [yshift=1.4em] {Same} node {Feeders} (1V_2);
+	\path [line] (check3.east) -- node {Same} node  [yshift=-1.4em] {Feeders} (1V_3);
+	\draw[dashed,->] (1V_2) -- (V1_2);
+	\draw[dashed,->] (1V_3) -- (V1_3);
+	\path [line] (check2) --  node [near start, yshift=0.3em] {Time} node [yshift=-0.3em] {Up} (C1);
+	\path [line] (check3) --  node [near start, yshift=0.3em] {Time} node [yshift=-0.3em] {Up} (C2);
+	\path [line] (C2.south) |- (check4.east);
+	\path [line] (C1.south) |- (check4.west);
+	\path [line] (check4.south) -- (fin2);
+	\path [line] (fin2) -- (V2);
+
+	% Legend
+	\node [legend, below of=stop, node distance=4cm] (leg) {Legend:\\ \ \\Condition C1:\\$if\ hr == 24$\\\ \ \ go to ``Time Up''\\$else\ if\ opt == 0$\\$OR$ \textit{violations in different feeders}\\\ \ \ go to ``Different Feeders''\\$else\ if$ \textit{violations in the same feeder}\\\ \ \ go to ``Same Feeder''\\$else$\\\ \ \ hr++; Check C1\\end\\ \ \\ \ \\Condition C2:\\$Check\ if\ n\_vio\_new \ge n\_vio\_old$\\$OR\ cost \ge cost\_vio+cost\_losses$};
+
+\end{tikzpicture}
+\caption{The Flowchart of the Algorithm}
+\labelFigure{fig:algoflch}
+\end{sidewaysfigure}
+%-------------------------------------------------------|
+%-------------------------------------------------------|
+%					 Flow Chart End 					|
+%-------------------------------------------------------|
+%-------------------------------------------------------|

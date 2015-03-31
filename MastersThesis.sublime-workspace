@@ -1,0 +1,474 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "mypreamble.sty",
+			"settings":
+			{
+				"buffer_size": 26404,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 173.0,
+		"selected_items":
+		[
+			[
+				"latex",
+				"LaTeXTools: Reconfigure and migrate settings"
+			],
+			[
+				"Package Control: Ins",
+				"Package Control: Install Package"
+			],
+			[
+				"Packate ",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 400.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/bhargav/Dropbox/PFE/Thesis/bibliography.bib",
+		"/C/Users/bhargav/Downloads/HQuick_cv.tex",
+		"/C/Users/bhargav/Dropbox/PFE/Thesis/MastersThesis.sublime-workspace",
+		"/C/Users/bhargav/Dropbox/PFE/Thesis/MastersThesis.sublime-project",
+		"/C/Users/bhargav/Dropbox/PFE/Thesis/Models.tex",
+		"/C/Users/bhargav/Dropbox/PFE/Thesis/introduction.tex",
+		"/C/Users/bhargav/Dropbox/PFE/Thesis/mypreamble.sty",
+		"/C/Users/bhargav/Dropbox/PFE/Thesis/g2e.tex",
+		"/C/Users/bhargav/Dropbox/PFE/Thesis/Results.tex",
+		"/C/Users/bhargav/Dropbox/PFE/Thesis/The_Algorithm.tex",
+		"/C/Users/bhargav/Dropbox/PFE/Thesis/abstract.tex",
+		"/C/Users/bhargav/Dropbox/PFE/Thesis/appendix.tex",
+		"/C/Users/bhargav/Dropbox/PFE/Thesis/candt.tex",
+		"/C/Users/bhargav/Documents/CV/cv_12 french.tex",
+		"/C/Users/bhargav/Dropbox/PFE/Thesis/report.tex",
+		"/C/Users/bhargav/Dropbox/PFE/Thesis/evolvDSO.tex",
+		"/Users/bhargav/Dropbox/PFE/Thesis/report.tex",
+		"/Users/bhargav/Dropbox/PFE/Thesis/mypreamble.sty",
+		"/Users/bhargav/Dropbox/PFE/Dissertation Files/Presentation/Presentation.tex",
+		"/Users/bhargav/Dropbox/PFE/Thesis/Models.tex",
+		"/Users/bhargav/Dropbox/PFE/Thesis/bibliography.bib",
+		"/Users/bhargav/Dropbox/PFE/Thesis/titlepage.tex",
+		"/Users/bhargav/Dropbox/PFE/Thesis/toc.tex",
+		"/Users/bhargav/Dropbox/PFE/Thesis/appendix.tex",
+		"/Users/bhargav/Dropbox/PFE/Thesis/Conclusion.tex",
+		"/Users/bhargav/Dropbox/PFE/Thesis/Results.tex",
+		"/Users/bhargav/Dropbox/PFE/Thesis/Value.tex",
+		"/Users/bhargav/Dropbox/PFE/Thesis/The_Algorithm.tex",
+		"/Users/bhargav/Dropbox/PFE/Thesis/State_of_the_Art.tex",
+		"/Users/bhargav/Dropbox/PFE/Thesis/Graphs/Model-Yin.tikz",
+		"/Users/bhargav/Dropbox/PFE/Thesis/Graphs/Model-Lopez.tikz",
+		"/Users/bhargav/Dropbox/PFE/Thesis/graphicxx.tex",
+		"/Users/bhargav/Dropbox/PFE/Thesis/Graphs/Results/PREDIS/OldLoad/VioOrg.tikz",
+		"/Users/bhargav/Dropbox/PFE/Thesis/Graphs/Results/PREDIS/OldLoad/LossesOrg1.tikz",
+		"/Users/bhargav/Dropbox/PFE/Thesis/tables.tex",
+		"/Users/bhargav/Dropbox/PFE/Thesis/evolvDSO.tex",
+		"/Users/bhargav/Dropbox/PFE/Thesis/introduction.tex",
+		"/Users/bhargav/Dropbox/PFE/Thesis/g2e.tex",
+		"/Users/bhargav/Dropbox/PFE/Thesis/candt.tex",
+		"/Users/bhargav/Dropbox/PFE/Thesis/bibliography.tex",
+		"/Users/bhargav/Dropbox/PFE/Thesis/abstract.tex",
+		"/Users/bhargav/Dropbox/PFE/Thesis/biblio.bak",
+		"/Users/bhargav/Dropbox/PFE/Thesis/Graphs/Results/Das/NewLoad/VtgOpt.tikz",
+		"/Users/bhargav/Dropbox/PFE/Thesis/figs.tex",
+		"/Users/bhargav/Dropbox/PFE/Thesis/Component.tex",
+		"/Users/bhargav/Dropbox/PFE/Thesis/Graphs/Results/PREDIS/OldLoad/VtgOrg.tikz",
+		"/Users/bhargav/Dropbox/PFE/Thesis/Graphs/Results/PREDIS/OldLoad/VtgOpt.tikz",
+		"/Users/bhargav/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/Users/bhargav/Dropbox/PFE/Repots and Docs Written/May Reports/Algorithm/Flowchart.tex",
+		"/Users/bhargav/Dropbox/PFE/Thesis/MastersThesis.sublime-workspace",
+		"/Users/bhargav/Dropbox/PFE/Thesis/MastersThesis.sublime-project",
+		"/Users/bhargav/Dropbox/PFE/Thesis/Predictive_Methods.tex",
+		"/Users/bhargav/Dropbox/PFE/Paper/Paper v1.tex",
+		"/Users/bhargav/Library/Application Support/Sublime Text 2/Packages/Default/Default (OSX).sublime-keymap"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			"/Users/bhargav/Dropbox/PFE/Thesis",
+			"",
+			"/Users/bhargav/Dropbox/PFE/Thesis",
+			"",
+			"configuration"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"in between",
+			"MWh",
+			"Wh",
+			"fulfill",
+			"fullfill",
+			"fulfil",
+			"chapter",
+			"toc",
+			"rgb",
+			"naveq",
+			"naveqs",
+			"sensor",
+			"marie",
+			"cite",
+			"bib",
+			"biblio",
+			"subsection",
+			"dresvar",
+			"loadvar",
+			"dayaheadloadcurvesb",
+			"dayaheadloadcurvesa",
+			"dayaheadloadcurves",
+			"configuraiton",
+			"euro",
+			"subsection",
+			"cost",
+			"memoir",
+			"color",
+			"caption",
+			"footnote",
+			"predict",
+			"]\n",
+			"float",
+			"\\abstractintoc",
+			"`",
+			"below",
+			"table",
+			"tablee",
+			"table",
+			"vspace",
+			"abstract",
+			"intoc",
+			"ref",
+			"cite",
+			"biblio",
+			"à",
+			"è",
+			"é",
+			"{code}",
+			"code",
+			"textit"
+		],
+		"highlight": true,
+		"in_selection": true,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"fulfil",
+			"fulfill",
+			"prog",
+			"program",
+			"lcomp",
+			"configuration",
+			"\\`{a}",
+			"\\`{e}",
+			"\\'{e}",
+			"{lstlisting}",
+			"emph"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "mypreamble.sty",
+					"settings":
+					{
+						"buffer_size": 26404,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								603,
+								604
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/TeX.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 216.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 100.0
+	},
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"bib",
+				"bibliography.bib"
+			],
+			[
+				"",
+				"/C/Users/bhargav/Dropbox/PFE/Thesis/introduction.tex"
+			],
+			[
+				"rep",
+				"report.tex"
+			],
+			[
+				"report",
+				"report.tex"
+			],
+			[
+				"the",
+				"The_Algorithm.tex"
+			],
+			[
+				"resul",
+				"Results.tex"
+			],
+			[
+				"mode",
+				"Models.tex"
+			],
+			[
+				"intr",
+				"introduction.tex"
+			],
+			[
+				"res",
+				"Results.tex"
+			],
+			[
+				"my",
+				"mypreamble.sty"
+			],
+			[
+				"g2",
+				"g2e.tex"
+			],
+			[
+				"resu",
+				"Results.tex"
+			],
+			[
+				"app",
+				"appendix.tex"
+			],
+			[
+				"b",
+				"bibliography.bib"
+			],
+			[
+				"m",
+				"mypreamble.sty"
+			],
+			[
+				"title",
+				"titlepage.tex"
+			],
+			[
+				"appen",
+				"appendix.tex"
+			],
+			[
+				"evo",
+				"evolvDSO.tex"
+			],
+			[
+				"tab",
+				"tables.tex"
+			],
+			[
+				"toc",
+				"toc.tex"
+			],
+			[
+				"state",
+				"State_of_the_Art.tex"
+			],
+			[
+				"sta",
+				"State_of_the_Art.tex"
+			],
+			[
+				"in",
+				"introduction.tex"
+			],
+			[
+				"g",
+				"g2e.tex"
+			],
+			[
+				"cand",
+				"candt.tex"
+			],
+			[
+				"abstra",
+				"abstract.tex"
+			],
+			[
+				"tit",
+				"titlepage.tex"
+			],
+			[
+				"ste",
+				"State_of_the_Art.tex"
+			],
+			[
+				"c",
+				"Component.tex"
+			],
+			[
+				"com",
+				"Component.tex"
+			],
+			[
+				"algo",
+				"The_Algorithm.tex"
+			],
+			[
+				"mypre",
+				"mypreamble.sty"
+			],
+			[
+				"repor",
+				"report.tex"
+			],
+			[
+				"g2e",
+				"g2e.tex"
+			],
+			[
+				"intro",
+				"introduction.tex"
+			],
+			[
+				"repo",
+				"report.tex"
+			],
+			[
+				"re",
+				"Results.tex"
+			],
+			[
+				"myp",
+				"mypreamble.sty"
+			],
+			[
+				"bibl",
+				"bibliography.bib"
+			],
+			[
+				"int",
+				"introduction.tex"
+			],
+			[
+				"ev",
+				"evolvDSO.tex"
+			],
+			[
+				"al",
+				"The_Algorithm.tex"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 207.0,
+	"status_bar_visible": true
+}

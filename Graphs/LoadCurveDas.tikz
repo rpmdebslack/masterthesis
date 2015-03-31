@@ -1,0 +1,87 @@
+% This file was created by matlab2tikz v0.4.6 running on MATLAB 8.2.
+% Copyright (c) 2008--2014, Nico Schlömer <nico.schloemer@gmail.com>
+% All rights reserved.
+% Minimal pgfplots version: 1.3
+% 
+% The latest updates can be retrieved from
+%   http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz
+% where you can also make suggestions and rate matlab2tikz.
+% 
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=\figurewidth,
+height=\figureheight,
+scale only axis,
+xmin=1,
+xmax=24,
+xtick={ 0,  4,  8, 12, 16, 20, 24},
+xlabel={Time (hour)},
+ymin=1,
+ymax=4,
+ylabel={Demand (MW)},
+axis x line*=bottom,
+axis y line*=left,
+legend style={draw=black,fill=white,legend cell align=left, at={(0.5,-0.25)},anchor=north, legend columns=1}
+]
+
+\addplot [color=red,solid,mark=triangle,mark options={solid}]
+  table[row sep=crcr]{
+0	2.349405	\\
+1	2.20301	\\
+2	2.042415	\\
+3	1.99943	\\
+4	1.99943	\\
+5	1.95381	\\
+6	2.00256	\\
+7	2.59775	\\
+8	1.699105	\\
+9	1.8097	\\
+10	2.518825	\\
+11	2.59002	\\
+12	2.384425	\\
+13	2.64015	\\
+14	2.469825	\\
+15	1.85725	\\
+16	2.234675	\\
+17	2.170975	\\
+18	3.533	\\
+19	3.68714	\\
+20	3.785935	\\
+21	3.54921	\\
+22	3.187735	\\
+23	2.725685	\\
+};
+\addlegendentry{Rural Network - Model A};
+
+\addplot [color=blue,solid,mark=square,mark options={solid}]
+  table[row sep=crcr]{
+0	2.05807563	\\
+1	1.7963816	\\
+2	1.57114753	\\
+3	1.51164628	\\
+4	1.51164628	\\
+5	1.42596326	\\
+6	1.47316896	\\
+7	2.22160334	\\
+8	1.91887959	\\
+9	2.25947876	\\
+10	2.86462259	\\
+11	2.87541732	\\
+12	2.67237475	\\
+13	2.8661525	\\
+14	2.84984517	\\
+15	2.2010163	\\
+16	2.69893055	\\
+17	2.56839365	\\
+18	3.556118	\\
+19	3.66603836	\\
+20	3.80485395	\\
+21	3.65398318	\\
+22	3.28427879	\\
+23	2.68812165	\\
+};
+\addlegendentry{Rural Network - Model B};
+
+\end{axis}
+\end{tikzpicture}%

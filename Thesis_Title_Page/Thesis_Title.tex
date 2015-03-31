@@ -1,0 +1,71 @@
+% ENSE3 SGB Master Thesis Title Page Format
+% Author: Bhargav Prasanna Swaminathan
+
+\documentclass{article}
+\usepackage[a4paper, left=20mm,right=20mm,top=20mm,bottom=20mm]{geometry}
+\usepackage{times}
+\usepackage{color}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{pgfplots}
+
+\begin{document}
+\thispagestyle{empty}
+\begingroup
+\centering
+\begin{figure}[!h]
+\centering
+%\includegraphics[width=55.3mm, height=36.3mm]{e3.jpg}
+ \newlength\figureheight
+    \newlength\figurewidth
+    \setlength\figureheight{3.63cm}
+    \setlength\figurewidth{5.53cm}
+    \input{e3.tikz}
+\end{figure}
+\fontfamily{ptm} \fontsize {24pt}{24pt}\selectfont
+{\bfseries Master Thesis\par}
+
+\vspace*{.02\textheight}
+
+\fontfamily{ptm} \fontsize {24pt}{24pt}\selectfont
+{\bfseries 2013-2014\par}
+
+\vspace*{.06\textheight}
+
+\fontfamily{ptm} \fontsize {16pt}{24pt}\selectfont
+{Optimal Configuration of Distribution Networks under Technical Constraints based on Predictive Methods\par}
+
+\vspace*{.03\textheight}
+
+\fontfamily{ptm} \fontsize {14pt}{24pt}\selectfont
+{\bfseries Bhargav Prasanna SWAMINATHAN\par}
+
+\vspace*{.06\textheight}
+
+\fontfamily{phv} \fontsize {24pt}{30pt}\selectfont
+{\itshape Master in Electrical Engineering\\ for Smart Grids and Buildings\par}
+
+\vspace*{.08\textheight}
+
+\flushleft
+\fontfamily{ptm} \fontsize {14pt}{24pt}\selectfont
+{Name of the company/laboratory: G2E Lab, Grenoble INP\par}
+
+\vspace*{.04\textheight}
+
+\fontfamily{ptm} \fontsize {14pt}{15pt}\selectfont
+{Address:\\B{\^a}timent D - Ense3 - Site Amp{\`e}re,\\
+38400 Saint Martin d'H{\`e}res.\par}
+
+\vspace*{.03\textheight}
+
+\fontfamily{ptm} \fontsize {14pt}{25pt}\selectfont
+{Name and first name of your supervisor (company / laboratory):\\CAIRE Rapha{\"e}l \& DEBUSSCHERE Vincent\par}
+
+\vspace*{.04\textheight}
+
+\fontfamily{ptm} \fontsize {16pt}{50pt}\selectfont
+{\color {red} Confidential Subject:\ \ \ \ \ \ \ \ \  Yes\ \  $\square$\ \ \ \ \ \ \ \ \  No\ \  $\boxtimes$ \par}
+
+\endgroup
+\end{document}

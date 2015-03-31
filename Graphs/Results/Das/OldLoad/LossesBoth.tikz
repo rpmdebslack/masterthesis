@@ -1,0 +1,114 @@
+% This file was created by matlab2tikz v0.4.6 running on MATLAB 8.2.
+% Copyright (c) 2008--2014, Nico Schlömer <nico.schloemer@gmail.com>
+% All rights reserved.
+% Minimal pgfplots version: 1.3
+% 
+% The latest updates can be retrieved from
+%   http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz
+% where you can also make suggestions and rate matlab2tikz.
+% 
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=\figurewidth,
+height=\figureheight,
+scale only axis,
+xmin=0,
+xmax=23,
+xlabel={Time (hour)},
+ymin=0,
+ymax=110,
+ylabel={Losses (kW)},
+axis x line*=bottom,
+axis y line*=left,
+legend style={draw=black,fill=white,legend cell align=left, at={(0.5,-0.25)},anchor=north, legend columns=1}
+]
+\addplot [color=red,solid,line width=1.0pt,mark=asterisk,mark options={solid}]
+  table[row sep=crcr]{
+0	36.0418933408924	\\
+1	28.4382759081625	\\
+2	26.1215707561308	\\
+3	21.6061502667575	\\
+4	24.3378452311177	\\
+5	22.4855092514709	\\
+6	23.0639450119174	\\
+7	40.4945348436625	\\
+8	14.1245722984627	\\
+9	15.7413514465241	\\
+10	36.0505152919788	\\
+11	51.0115231011965	\\
+12	29.4802184601339	\\
+13	39.5355852743295	\\
+14	29.7385119880372	\\
+15	16.8690444893987	\\
+16	25.7830091609484	\\
+17	27.5769625406691	\\
+18	87.9169828226134	\\
+19	100.697324204575	\\
+20	100.968451139209	\\
+21	93.5993669897117	\\
+22	59.0483117906493	\\
+23	49.0753737355887	\\
+};
+\addlegendentry{Unoptimized Network};
+
+\addplot [color=blue,solid,line width=1.0pt,mark=square,mark options={solid}]
+  table[row sep=crcr]{
+0	36.0418933389994	\\
+1	28.4382759076768	\\
+2	26.1215707558415	\\
+3	21.606150266659	\\
+4	24.3378452308868	\\
+5	22.4855092513199	\\
+6	23.0639450117631	\\
+7	40.4945348421626	\\
+8	14.1245722984525	\\
+9	15.7413514464996	\\
+10	36.0505152905588	\\
+11	51.0115230871944	\\
+12	29.4802184592968	\\
+13	39.5355852684154	\\
+14	29.7385119872706	\\
+15	16.8690444893632	\\
+16	25.7830091605415	\\
+17	27.5769625392103	\\
+18	64.0073302920152	\\
+19	77.3872283072241	\\
+20	84.5900578611047	\\
+21	74.9994273773025	\\
+22	51.1377183234485	\\
+23	39.840309005611	\\
+};
+\addlegendentry{Begin with Original Configuration};
+
+\addplot [color=green,solid,line width=1.0pt,mark=triangle,mark options={solid}]
+  table[row sep=crcr]{
+0	30.7647595373461	\\
+1	22.639743342921	\\
+2	21.4337804562487	\\
+3	17.1157137233127	\\
+4	20.262209962002	\\
+5	18.9978831369853	\\
+6	19.9603749658966	\\
+7	35.5754115147677	\\
+8	11.4917060626176	\\
+9	12.4681133362066	\\
+10	29.1940722564699	\\
+11	41.6899755061073	\\
+12	25.4448016564346	\\
+13	28.5928583872414	\\
+14	25.7871445214697	\\
+15	14.4334880206637	\\
+16	19.4504158859143	\\
+17	21.6254054733916	\\
+18	65.8655374635297	\\
+19	78.7974687239812	\\
+20	83.2462253638733	\\
+21	77.4907267026781	\\
+22	52.377677435006	\\
+23	39.5154328666081	\\
+};
+\addlegendentry{Begin with Optimal Configuration};
+
+\end{axis}
+\end{tikzpicture}%
